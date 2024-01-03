@@ -15,9 +15,8 @@ for n in range(1, N+2):
     if arr[s[-1]] <= h:
         s.append(n)
     else:
-        #여기 문제 있음
         while arr[s[-1]] > h:
-            now = arr[s[-1]] * (n-s.pop())
+            now = arr[s.pop()] * (n-s[-1]-1)
             if now > big:
                 big = now
         now = arr[s[-1]]
