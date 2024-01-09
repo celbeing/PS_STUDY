@@ -1,10 +1,30 @@
 #9370: 미확인 도착지
 import sys
-import heapq
+from heapq import heappush, heappop
 input = sys.stdin.readline
-inf = sys.maxsize
+inf = 1e9
 T=int(input())
 
+def dijk(s):
+    q = []
+    distance = [inf]*(n+1)
+    heappush(q,(0,s))
+    distance[s] = 0
+
+    while q:
+        now, node = heappop(q)
+        if distance[node] < now:
+            continue
+        for weight, next in graph[node]:
+            new = now + weight
+
+            if distance[next] == new:
+                heappush(q, (new, next))
+            elif distance[next] > new:
+                distance[next] = new
+                heappush(q, (new, next))
+
+'''
 def case():
     n,m,t = map(int,input().split())
     s,g,h = map(int,input().split())
@@ -25,7 +45,7 @@ def case():
     heapq.heappush(heap,(0,s,0))
 
     while heap:
-        now, node, passed = heapq.heappop(heap)
+        now, node = heapq.heappop(heap)
         if distance[node] < now:
             continue
         for weight, next in graph[node]:
@@ -46,6 +66,18 @@ def case():
         if thru[j] == 1:
             result.append(j)
     print(*result)
+'''
 
 for t in range(T):
-    case()
+    n, m, t = map(int, input().split())
+    s, g, h = map(int, input().split())
+    graph = [[] for _ in range(n + 1)]
+    destination = []
+
+    for j in range(m):
+        a, b, d = map(int, input().split())
+        graph[a].append((d, b))
+        graph[b].append((d, a))
+    for j in range(t):
+        destination.append(int(input()))
+    destination.sort()
