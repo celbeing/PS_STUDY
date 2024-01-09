@@ -5,43 +5,47 @@ input = sys.stdin.readline
 inf = sys.maxsize
 T=int(input())
 
-for t in range(T):
-    n,m,t=map(int,input().split())
-    s,g,h=map(int, input().split())
-    dist = [inf]*(n+1)
-    thru = [0]*(n+1)
+def case():
+    n,m,t = map(int,input().split())
+    s,g,h = map(int,input().split())
     graph = [[] for _ in range(n+1)]
-    candidate = []
-    for _ in range(m):
-        a,b,d=map(int,input().split())
+    distance = [inf] * (n+1)
+    thru = [0] * (n+1)
+    destination = []
+    for j in range(m):
+        a,b,d = map(int,input().split())
         graph[a].append((d,b))
         graph[b].append((d,a))
-    for _ in range(t):
-        candidate.append(int(input()))
-    candidate.sort()
+    for j in range(t):
+        destination.append(int(input()))
+    destination.sort()
 
-    dist[s] = 0
-    hq = []
-    heapq.heappush(hq, (0, s, 0))
+    distance[s] = 0
+    heap = []
+    heapq.heappush(heap,(0,s,0))
 
-    while hq:
-        w, node, passed = heapq.heappop(hq)
-        if dist[node] < w: continue
-        thru[node] = passed
+    while heap:
+        now, node, passed = heapq.heappop(heap)
+        if distance[node] < now:
+            continue
         for weight, next in graph[node]:
-            newdist = w+weight
-            if dist[next] > newdist:
-                dist[next] = newdist
-                if (node == g and next == h) or (node == h and next == g):
-                    heapq.heappush(hq,(newdist,next,1))
-                else:
-                    heapq.heappush(hq, (newdist, next, passed))
-            elif dist[next] == newdist and ((node == g and next == h) or (node == h and next == g) or passed == 1) and thru[next] == 0:
-                heapq.heappush(hq, (newdist, next, 1))
+            new = now + weight
+            if (node == g and next == h) or (node == h and next == g):
+                passed = 1
+
+            if distance[next] == new and passed == 1 and thru[next] == 0:
+                thru[next] = passed
+                heapq.heappush(heap,(new,next,passed))
+            elif distance[next] > new:
+                distance[next] = new
+                thru[next] = passed
+                heapq.heappush(heap,(new,next,passed))
 
     result = []
-    for k in candidate:
-        if thru[k] == 1:
-            result.append(k)
-
+    for j in destination:
+        if thru[j] == 1:
+            result.append(j)
     print(*result)
+
+for t in range(T):
+    case()
