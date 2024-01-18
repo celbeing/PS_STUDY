@@ -17,5 +17,5 @@ def iceburg(sea):
                 queue.append([i,j])
         if queue: break
 
-    
+
     while queue:
