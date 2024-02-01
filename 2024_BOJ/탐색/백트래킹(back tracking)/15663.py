@@ -5,10 +5,8 @@ input = sys.stdin.readline
 N,M = map(int,input().split())
 num = list(map(int,input().split()))
 perm = list(permutations(num,M))
-perm.sort()
-result = []
+result = set()
 for p in perm:
-    if p in result: continue
-    result.append(p)
-for r in result:
+    result.add(p)
+for r in sorted(result):
     print(*r)

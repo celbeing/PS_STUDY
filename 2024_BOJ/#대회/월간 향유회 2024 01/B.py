@@ -4,6 +4,9 @@ input = sys.stdin.readline
 T = int(input())
 for _ in range(T):
     N, P = map(int,input().split())
+    if P <=5 :
+        print(*[6, 3])
+        continue
     dsum = 0
     digit = [0]*N
     t = 1
@@ -15,7 +18,7 @@ for _ in range(T):
     upper = 3 - lower
     t = 1
     for i in range(N):
-        if digit[i] < upper:
+        if digit[i] <= lower:
             print(*[P+t*upper, 3])
         else:
             print(*[P-t*lower, 3])
