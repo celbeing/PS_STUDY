@@ -1,4 +1,4 @@
-#E번 - 트리 탐색기
+#E번 - 트리(tree) 탐색기
 import sys
 from collections import deque
 input = sys.stdin.readline

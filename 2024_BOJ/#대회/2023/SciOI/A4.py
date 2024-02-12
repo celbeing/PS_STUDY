@@ -1,4 +1,4 @@
-# 순열 그래프
+# 순열 그래프(graph)
 import sys
 input = sys.stdin.readline
 N,M = map(int,input().split())

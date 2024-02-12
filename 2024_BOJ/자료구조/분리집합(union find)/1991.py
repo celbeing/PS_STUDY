@@ -1,4 +1,4 @@
-#1991: 트리 순회
+#1991: 트리(tree) 순회
 import sys
 input = sys.stdin.readline
 N = int(input())
