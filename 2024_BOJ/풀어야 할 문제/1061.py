@@ -1,4 +1,6 @@
 #1061: 삼각형
+
+'''
 import sys
 input = sys.stdin.readline
 N,M = map(int,input().split())
@@ -76,9 +78,9 @@ def find(a,b,c):
             return True
     return False
 
-for i in range(M*N-1):
+for i in range(M*N-2):
     a = [i//M,i%M]
-    for j in range(i+1,N*M):
+    for j in range(i+1,N*M-1):
         b = [j//M,j%M]
         if dot[a[0]][a[1]] == dot[b[0]][b[1]]:
             continue
@@ -91,4 +93,3 @@ for i in range(M*N-1):
                 result += 1
 
 print(result)
-'''
