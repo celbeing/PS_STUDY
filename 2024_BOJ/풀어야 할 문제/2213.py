@@ -19,8 +19,8 @@ def dfs(parent,node):
 		take_path[node].append(node)
 		return
 	while graph[node]:
-		now = graph[node].pop()
-		if now == parent: continue
-		dfs(node,now)
-		take[node] = drop[now] + w[node]
+		next = graph[node].pop()
+		if next == parent: continue
+		dfs(node,next)
+		take[node] = drop[next] + w[node]
 		drop[node] =
