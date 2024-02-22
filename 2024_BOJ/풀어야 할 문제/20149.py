@@ -1,4 +1,4 @@
-#17386: 선분 교차 1
+#20149: 선분 교차 3
 import sys
 input = sys.stdin.readline
 p,q,r,s = map(int,input().split())
@@ -25,5 +25,25 @@ if cross1 == cross2 == 0:
 else:
     if cross1 <= 0 and cross2 <= 0:
         print(1)
+
+        # 축에 평행한 두 직선인 경우
+        if a[0] == b[0] and c[1] == d[1]:
+            print(a[0],c[1])
+        elif a[1] == b[1] and c[0] == d[0]:
+            print(c[0],a[1])
+
+        # 한 직선만 축에 평행한 경우
+        elif a[0] == b[0]:
+
+        elif c[0] == d[0]:
+
+        elif a[1] == b[1]:
+
+        elif c[1] == d[1]:
+
+        # 축에 평행하지 않은 두 직선인 경우
+        else:
+            
+
     else:
         print(0)
