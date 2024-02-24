@@ -1,0 +1,8 @@
+print(ord("A"))
+print(ord("a"))
+print("A".isupper())
+print("a".isupper())
+print("1".isdigit())
+print("0".isdigit())
+print(ord("("))
+print(ord(")"))

@@ -18,32 +18,21 @@ cross1 = ccw(a,b,c)*ccw(a,b,d)
 cross2 = ccw(c,d,a)*ccw(c,d,b)
 
 if cross1 == cross2 == 0:
-    if min(a[0],b[0]) <= max(c[0],d[0]) and min(c[0],d[0]) <= max(a[0],b[0]) and min(a[1],b[1]) <= max(c[1],d[1]) and min(c[1],d[1]) <= max(a[1],b[1]):
+    minabx = min(a[0],b[0])
+    minaby = min(a[1],b[1])
+    maxabx = max(a[0],b[0])
+    maxaby = max(a[1],b[1])
+    mincdx = min(c[0],d[0])
+    mincdy = min(c[1],d[1])
+    maxcdx = max(c[0],d[0])
+    maxcdy = max(c[1],d[1])
+    if minabx <= maxcdx and min(a[0],b[0]) <= max(c[0],d[0]) and min(c[0],d[0]) <= max(a[0],b[0]) and min(a[1],b[1]) <= max(c[1],d[1]) and min(c[1],d[1]) <= max(a[1],b[1]):
         print(1)
     else:
         print(0)
 else:
     if cross1 <= 0 and cross2 <= 0:
         print(1)
-
-        # 축에 평행한 두 직선인 경우
-        if a[0] == b[0] and c[1] == d[1]:
-            print(a[0],c[1])
-        elif a[1] == b[1] and c[0] == d[0]:
-            print(c[0],a[1])
-
-        # 한 직선만 축에 평행한 경우
-        elif a[0] == b[0]:
-
-        elif c[0] == d[0]:
-
-        elif a[1] == b[1]:
-
-        elif c[1] == d[1]:
-
-        # 축에 평행하지 않은 두 직선인 경우
-        else:
-            
 
     else:
         print(0)
