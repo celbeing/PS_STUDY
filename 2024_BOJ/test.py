@@ -1,8 +1,7 @@
-print(ord("A"))
-print(ord("a"))
-print("A".isupper())
-print("a".isupper())
-print("1".isdigit())
-print("0".isdigit())
-print(ord("("))
-print(ord(")"))
+import sys
+input = sys.stdin.readline
+N,M = map(int,input().split())
+if N*100 >= M:
+    print("Yes")
+else:
+    print("No")

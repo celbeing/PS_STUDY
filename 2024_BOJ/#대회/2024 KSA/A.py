@@ -1,3 +1,4 @@
+#A: 소수가 아닌 수 3
 import sys
 input = sys.stdin.readline
 N = int(input())
