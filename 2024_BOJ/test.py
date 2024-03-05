@@ -1,7 +1,4 @@
 import sys
+from math import comb
 input = sys.stdin.readline
-N,M = map(int,input().split())
-if N*100 >= M:
-    print("Yes")
-else:
-    print("No")
+n = [1,2,3,4,5]
