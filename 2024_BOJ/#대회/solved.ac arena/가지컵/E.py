@@ -10,117 +10,87 @@ for _ in range(T):
     rslt = list(input().rstrip())
     win,lose,draw,G,D,O,Q = 0,0,0,0,0,0,0
     q = deque()
-    wstnd = -1
-    lstnd = -1
+    wstnd,lstnd = -1,-1
+    winner = ''
+    loser = ''
+
     for i in range(N):
         if rslt[i] == 'D': draw+=1
         elif rslt[i] == 'W':
             win+=1
             wstnd = i
+            if pick != '?':
+                winner = pick[i]
         else:
             lose+=1
             lstnd = i
-
+            if pick != '?':
+                loser = pick[i]
         if pick[i] == 'G': G+=1
         elif pick[i] == 'D': D+=1
         elif pick[i] == 'O': O+=1
         else: q.append(i)
     Q = len(q)
 
-    if 0 < draw < N or ((G>0 and D>0 and O>0) and draw == 0) or win == N or lose == N:
+    if 0<draw<N or (draw == 0 and D>0 and G>0 and O>0):
         print("NO")
         continue
+
     if draw == N:
         if N == 2:
             print("NO")
-        elif Q<3:
-            if G+Q == N:
-                while q:
-                    pick[q.popleft()] = 'G'
-            elif D+Q == N:
-                while q:
-                    pick[q.popleft()] = 'D'
-            elif O+Q == N:
-                while q:
-                    pick[q.popleft()] = 'O'
-            else:
-                if Q == 1:
-                    if D == 0:
-                        pick[q.popleft()] = 'D'
-                        D += 1
-                    elif G == 0:
-                        pick[q.popleft()] = 'G'
-                        G += 1
-                    elif O == 0:
-                        pick[q.popleft()] = 'O'
-                        O += 1
-                    else:
-                        pick[q.popleft()] = 'G'
-                        G += 1
-                    if G == 0 or D == 0 or O == 0:
-                        print("NO")
-                        continue
-                elif Q == 2:
-                    if D == 0:
-                        pick[q.popleft()] = 'D'
-                        D += 1
-                    if G == 0:
-                        pick[q.popleft()] = 'G'
-                        G += 1
-                    if q and O == 0:
-                        pick[q.popleft()] = 'O'
-                        O += 1
-                    elif q:
-                        pick[q.popleft()] = 'O'
-                        O += 1
-                    if G == 0 or D == 0 or O == 0:
-                        print("NO")
-                        continue
-            print("YES")
-            print(''.join(pick))
-        else:
-            print("YES")
-            if G == 0:
-                pick[q.popleft()] = 'G'
-            if D == 0:
-                pick[q.popleft()] = 'D'
-            if O == 0:
-                pick[q.popleft()] = 'O'
+            continue
+
+        if (G == 0 and D>0 and O>0) or (G>0 and D == O == 0):
             while q:
                 pick[q.popleft()] = 'G'
-            print(''.join(pick))
-        continue
-    flag = True
-    winner = ''
-    if wstnd > 0:
-        winner = pick[wstnd]
-        if winner == 'G': losser = 'O'
-        elif winner == 'O': losser = 'D'
-        else: losser = 'G'
-    else:
-        losser = pick[lstnd]
-        if pick[lstnd] == 'G': winner = 'D'
-        elif pick[lstnd] == 'D': winner = 'O'
-        else: winner = 'G'
-    for i in range(N):
-        if rslt[i] == 'W':
-            if pick[i] == winner:
-                continue
-            elif pick[i] == '?':
-                pick[i] = winner
-            else:
-                flag = False
-                break
+            G += Q
+
+        elif (D == 0 and G>0 and O>0) or (D>0 and G == O == 0):
+            while q:
+                pick[q.popleft()] = 'D'
+            D += Q
+
+        elif (O == 0 and G>0 and D>0) or (O>0 and G == D == 0):
+            while q:
+                pick[q.popleft()] = 'O'
+            O += Q
+
+        if G+D+O != Q:
+            print("NO")
+            continue
         else:
-            if pick[i] == losser:
-                continue
-            elif pick[i] == '?':
-                pick[i] = losser
-            else:
-                flag = False
-                break
-    if flag:
-        print("YES")
-        print(''.join(pick))
+            print("YES")
+            print(''.join(pick))
+
     else:
-        print("NO")
+        if wstnd>0:
+            if winner == 'G': loser = 'O'
+            elif winner == 'O': loser = 'D'
+            else: loser = 'G'
+        else:
+            if loser == 'G': winner = 'D'
+            elif loser == 'D': winner = 'O'
+            else: winner = 'G'
+
+        while q:
+            k = q.popleft()
+            if rslt[k] == 'W': pick[k] = winner
+            else: pick[k] = loser
+
+        flag = True
+        for i in range(N):
+            if rslt[i] == 'W':
+                if pick[i] != winner:
+                    flag = False
+                    break
+            else:
+                if pick[i] != loser:
+                    flag = False
+                    break
+
+        if flag:
+            print("YES")
+            print(''.join(pick))
+        else:
+            print("NO")
