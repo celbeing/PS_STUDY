@@ -18,13 +18,13 @@ for _ in range(T):
         if rslt[i] == 'D': draw+=1
         elif rslt[i] == 'W':
             win+=1
-            wstnd = i
-            if pick != '?':
+            if pick[i] != '?':
+                wstnd = i
                 winner = pick[i]
         else:
             lose+=1
-            lstnd = i
-            if pick != '?':
+            if pick[i] != '?':
+                lstnd = i
                 loser = pick[i]
         if pick[i] == 'G': G+=1
         elif pick[i] == 'D': D+=1
@@ -56,7 +56,12 @@ for _ in range(T):
                 pick[q.popleft()] = 'O'
             O += Q
 
-        if G+D+O != Q:
+        elif (G == 0 and D == 0 and O == 0) and Q == N:
+            while q:
+                pick[q.popleft()] = 'G'
+            G += Q
+
+        if G+D+O != N:
             print("NO")
             continue
         else:
@@ -64,14 +69,24 @@ for _ in range(T):
             print(''.join(pick))
 
     else:
-        if wstnd>0:
+        if win == 0 and lose == 0:
+            print("NO")
+            continue
+        if win == N or lose == N:
+            print("NO")
+            continue
+
+        if wstnd>=0:
             if winner == 'G': loser = 'O'
             elif winner == 'O': loser = 'D'
             else: loser = 'G'
-        else:
+        elif lstnd>=0:
             if loser == 'G': winner = 'D'
             elif loser == 'D': winner = 'O'
             else: winner = 'G'
+        else:
+            winner = 'G'
+            loser = 'O'
 
         while q:
             k = q.popleft()
