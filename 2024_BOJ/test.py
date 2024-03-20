@@ -1,8 +1,6 @@
-N = int(input())
-s = [False]*10
-A = list(map(int,input().split()))
-for k in A:
-    s[k] = True
-for i in range(10):
-    if s[i]:
-        print(i)
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    for _ in range(N):
+        a,b = map(int,input().split())
+        print(a+b,a*b)
