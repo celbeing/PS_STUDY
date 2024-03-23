@@ -1,6 +1,7 @@
-T = int(input())
-for _ in range(T):
-    N = int(input())
-    for _ in range(N):
-        a,b = map(int,input().split())
-        print(a+b,a*b)
+A,B = map(int,input().split())
+C = int(input())
+R = A+B-C-C
+if R < 0:
+    print(A+B)
+else:
+    print(R)
