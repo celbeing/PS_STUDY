@@ -1,23 +1,16 @@
 #31714: 지정좌석 배치하기 1
 import sys
-from heapq import heappush,heappop
 input = sys.stdin.readline
 N,M,D = map(int,input().split())
 flag = True
-h = [[] for _ in range(N)]
-for i in range(N):
-    seat = list(map(int, input().split()))
-    for k in seat:
-        if k > D: heappush(h[i],D-k)
-        else: heappush(h[i],0)
+seat = [sorted(list(map(int,input().split()))) for _ in range(N)]
 
-for _ in range(M):
-    for i in range(N-1):
-        if h[i][0]<0:
-            if h[i][0] < h[i+1][0]-D:
-                flag = False
-                break
-        heappop(h[i])
+for i in range(1,N):
+    for j in range(M):
+        if seat[i][j]+D <= seat[i-1][j]:
+            flag = False
+            break
     if ~flag: break
+
 if flag: print("YES")
 else: print("NO")
