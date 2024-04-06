@@ -10,7 +10,7 @@ for i in range(1,N):
         if seat[i][j]+D <= seat[i-1][j]:
             flag = False
             break
-    if ~flag: break
+    if not(flag): break
 
 if flag: print("YES")
 else: print("NO")
