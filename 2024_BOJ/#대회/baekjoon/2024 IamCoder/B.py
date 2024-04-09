@@ -24,7 +24,7 @@ def areum(P,N,M,mogi):
         for j in range(M):
             count = 0
             for m in mogi:
-                d = dist((m[0], m[1]), (i, j))
+                d = dist((m[0], m[1]), (i+1, j+1))
                 if m[2] * d <= P:
                     count += 1
             if count > killed:
