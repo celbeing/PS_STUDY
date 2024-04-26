@@ -5,7 +5,7 @@ N,Q = map(int,input().split())
 P = [0]+sorted(list(map(int,input().split())))
 
 def binsearch(t):
-    s,e = 0,N-1
+    s,e = 0,N
     while s < e:
         m = (s+e)//2
         if P[m] > t:
@@ -25,7 +25,8 @@ for i in range(1,N+1):
     prepix[i] = prepix[i-1]+P[i]
 for _ in range(Q):
     X = int(input())
-    t = binsearch(X)
-    a = t*X-prepix[t]
-    b = abs(prepix[-1]-prepix[t]-(N-t)*X)
+    left = binsearch(X)
+    right = N - left
+    a = left * X - prepix[left]
+    b = prepix[-1] - prepix[left] - right * X
     print(a+b)
