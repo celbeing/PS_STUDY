@@ -1,3 +1,4 @@
-while(True):
-    d = list(input().split(','))
-    print("{},{}".format(d[2].lower(),d[1]))
+a = [1,2,3,4,5]
+b = a[0:]
+a[2] = 1
+print(b)
