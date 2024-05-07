@@ -1,3 +1,3 @@
-a,b,c = map(int,input().split())
-if a <= c < b: print(1)
-else: print(0)
+for _ in range(int(input())):
+    a,b = map(float,input().split())
+    print("The height of the triangle is {:.2f} units".format(a/b*2))
