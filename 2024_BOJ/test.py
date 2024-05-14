@@ -1,5 +1,0 @@
-print(ord('a')-65)
-print(ord('A'))
-print(chr(96))
-print(chr(91))
-print(chr(90))
