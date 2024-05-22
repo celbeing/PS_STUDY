@@ -22,24 +22,32 @@ for i in range(N*2+1,T):
     graph[i].append(T)
     capa[i][T] = 1
 
-def lv_graph():
+def lv_graph(phase=0):
     level = [-1]*(T+1)
     level[0] = 0
-    bfs = deque([0])
+    bfs = deque()
+    if phase:
+        for i in range(1,N+1):
+            if capa[0][i]-flow[0][i] > 0:
+                level[i] = 1
+                bfs.append(i)
+    else:
+        for i in range(N+1,N*2+1):
+            if capa[0][i]-flow[0][i] > 0:
+                level[i] = 1
+                bfs.append(i)
     while bfs:
         now = bfs.popleft()
-        if (result == 0 and not(N < now <= N*2)) or (result > 0 and not(0 < now <= N)):
-            for next in graph[now]:
-                if level[next] == -1 and capa[now][next]-flow[now][next] > 0:
-                    bfs.append(next)
-                    level[next] = level[now]+1
+        for next in range(N*2+M+2):
+            if level[next] == -1 and capa[now][next]-flow[now][next] > 0:
+                bfs.append(next)
+                level[next] = level[now]+1
     return level
 
 def dinic(now,cut):
     if now == T: return cut
 
-    for k in range(work[now],len(graph[now])):
-        next = graph[now][k]
+    for next in range(work[now],N*2+M+2):
         residual = capa[now][next]-flow[now][next]
         if level[now]+1 == level[next] and residual > 0:
             f = dinic(next,min(cut,residual))
@@ -54,10 +62,8 @@ result = 0
 
 count = 0
 while count < N:
-    level = lv_graph()
+    level = lv_graph(1)
     if level[-1] == -1: break
-    for i in range(N+1,N*2+1):
-        level[i] = -1
 
     work = [0]*T
     while True:
@@ -72,8 +78,6 @@ count = 0
 while count < K:
     level = lv_graph()
     if level[-1] == -1: break
-    for i in range(1,N+1):
-        level[i] = -1
 
     work = [0]*T
     while True:
