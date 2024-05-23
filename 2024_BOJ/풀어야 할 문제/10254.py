@@ -23,7 +23,7 @@ def calipers(dots):
     n = len(convex)
     l,r = 0,0
     for i in range(n):
-        if convex[i][0] < convex[l][0]: l = i
+        if convex[i][1] < convex[l][1]: l = i
         if convex[i][1] > convex[r][1]: r = i
     peek = dist(convex[l],convex[r])
     result = []
