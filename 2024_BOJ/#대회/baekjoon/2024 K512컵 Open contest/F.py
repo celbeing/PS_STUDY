@@ -12,6 +12,7 @@ item = [tuple(map(int,input().split())) for _ in range(N)]
 E = tuple(map(int,input().split()))
 while bfs:
     sta,x,y = heappop(bfs)
+    if sta >= K: break
     if (x,y) == E:
         break
     for i in range(4):
@@ -22,6 +23,7 @@ while bfs:
         else:
             visit[(dx,dy)] = sta+1
             heappush(bfs,(sta+1,dx,dy))
+    if sta >= K-1: continue
     for a,b in item:
         dx = x+a
         dy = y+b
@@ -31,6 +33,6 @@ while bfs:
             visit[(dx,dy)] = sta+2
             heappush(bfs,(sta+2,dx,dy))
 if E in visit:
-    print(visit(E))
+    print(visit[E])
 else:
     print(-1)
