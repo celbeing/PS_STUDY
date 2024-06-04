@@ -1,2 +1,6 @@
-l = [1,2,3,4,5]
-print(l[1:3])
+people = list(map(int,input().split()))
+x,y,r = map(int,input().split())
+if x in people:
+    print(people.index(x)+1)
+else:
+    print(0)
