@@ -21,5 +21,48 @@ def spread():
             A[x][y] += next[x][y]
     return
 
-def air(x,y):
-    while x > 0
+def air(x):
+    r = x-1
+    c = 0
+    while r > 0:
+        A[r][c] = A[r-1][c]
+        r -= 1
+    while c < C-1:
+        A[r][c] = A[r][c+1]
+        c += 1
+    while r < x-1:
+        A[r][c] = A[r+1][c]
+        r += 1
+    while c > 0:
+        A[r][c] = A[r][c-1]
+        c -= 1
+    r += 2
+    while r < R-1:
+        A[r][c] = A[r+1][c]
+        r += 1
+    while c < C-1:
+        A[r][c] = A[r][c+1]
+        c += 1
+    while r > x:
+        A[r][c] = A[r-1][c]
+        r -= 1
+    while c > 0:
+        A[r][c] = A[r][c-1]
+        c -= 1
+
+airR = 0
+for i in range(2,R-2):
+    if A[i][0] == -1:
+        airR = i
+        break
+
+for i in range(T):
+    spread()
+    air(airR)
+
+count = 0
+for x in range(R):
+    for y in range(C):
+        if A[i][y] == -1: continue
+        count += A[i][y]
+print(count)
