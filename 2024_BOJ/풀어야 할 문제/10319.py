@@ -1,6 +1,7 @@
 # 10319: 좀비 아포칼립스
 import sys
 from collections import deque
+sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
 def connect(u,v,k = int(1e9)):
@@ -40,7 +41,6 @@ def dinic(now,cut):
         work[now] += 1
     return 0
 
-
 T = int(input())
 for _ in range(T):
     n = int(input())
@@ -52,24 +52,19 @@ for _ in range(T):
     flow = [{} for _ in range(tt+2)]
 
     for u in range(1,n+1):
-        for v in range(-99,-99+s):
+        for v in range(-99,-100+s):
             connect(u*100+v,u*100+v+1)
     connect(0,i*100-99)
 
     for _ in range(m):
         hos = int(input())
-        if hos == i:
-            connect(0,tt+1)
-        else:
-            for k in range(-99,-99+s):
-                connect(hos*100+k,tt+1)
+        connect(hos*100-100+s,tt+1)
 
     for _ in range(int(input())):
         a,b,p,t = map(int,input().split())
         if a == i:
             connect(0,b*100-100+t,p)
-        l = min(-99+s,-t+1)
-        for k in range(-99,l):
+        for k in range(-99,-99+s-t):
             connect(a*100+k,b*100+k+t,p)
 
     arrive = 0
