@@ -22,9 +22,9 @@ if 200<max(N,M):
     print("SAD")
     exit()
 
-# 파댕이의 탐색 정보(x,y,식당 도착여부)
-nowq = deque([[0,0,0]])   # 현재t 탐색
-next = deque()          # t+10 탐색
+# 파댕이의 5. Search 정보(x,y,식당 도착여부)
+nowq = deque([[0,0,0]])   # 현재t 5. Search
+next = deque()          # t+10 5. Search
 rest = deque()          # 식당에서 나온 파댕이
 
 # 선생님께 걸렸는지 확인해보자~
@@ -59,7 +59,7 @@ while nowq or rest:
     # 선생님께 걸렸나? > 탐색하지 않음
     if not((x==N-1 and y==M-1) or (x==0 and y==0)) and tuple([x,y]) in danger: continue
 
-    # 파댕이 탐색 시작
+    # 파댕이 5. Search 시작
     for d in move:
         dx = x+d[0]
         dy = y+d[1]

@@ -1,4 +1,4 @@
-#1707: 이분 그래프(graph)
+#1707: 이분 1. Graph
 import sys
 from collections import deque
 input = sys.stdin.readline

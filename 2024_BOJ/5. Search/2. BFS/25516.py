@@ -1,4 +1,4 @@
-#25516: 거리가 k이하인 트리(tree) 노드에서 사과 수확하기
+#25516: 거리가 k이하인 4. Tree 노드에서 사과 수확하기
 import sys
 from collections import deque
 input = sys.stdin.readline

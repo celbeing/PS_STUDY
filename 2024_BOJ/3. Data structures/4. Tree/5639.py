@@ -1,4 +1,4 @@
-#5639: 이진 검색 트리(tree)
+#5639: 이진 검색 4. Tree
 import sys
 sys.setrecursionlimit(10**5)
 input = sys.stdin.readline

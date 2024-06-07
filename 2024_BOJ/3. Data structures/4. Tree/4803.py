@@ -1,4 +1,4 @@
-#4803: 트리(tree)
+#4803: 4. Tree
 import sys
 from collections import deque
 input = sys.stdin.readline
