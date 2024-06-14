@@ -1,20 +1,22 @@
 import sys
 input = sys.stdin.readline
+rate = list(map(int,input().split()))
+r = [[0]*8 for _ in range(8)]
+for i in range(1,8): r[0][i] = rate[i-1]/100
+for i in range(2,8): r[1][i] = rate[i+5]/100
+for i in range(3,8): r[2][i] = rate[i+10]/100
+for i in range(4,8): r[3][i] = rate[i+14]/100
+for i in range(5,8): r[4][i] = rate[i+17]/100
+for i in range(6,8): r[5][i] = rate[i+19]/100
+for i in range(7,8): r[6][i] = rate[i+20]/100
+for i in range(1,8):
+    for j in range(i):
+        r[i][j] = 1-r[j][i]
 
-def dsum(x):
-    sum = 0
-    while x > 0:
-        sum += x%10
-        x //= 10
-    return sum
+f = [0]*8
+for i in range(4):
+    f[i*2] = r[i*2][i*2+1]
+    f[i*2+1] = r[i*2+1][i*2]
 
-while True:
-    s = input().rstrip()
-    if s == "END": break
-
-    N = int(s)
-    d = dsum(N)
-    for i in range(N-1,-1,-1):
-        if dsum(i) == d-1:
-            print(i)
-            break
+for i in range(8):
+    
