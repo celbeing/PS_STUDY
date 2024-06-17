@@ -8,34 +8,39 @@ def check(g,r):
     check = [[0]*M for _ in range(N)]
     green = deque(g)
     red = deque(r)
+    for x,y in green:
+        check[x][y] = -2
+    for x,y in red:
+        check[x][y] = -2
 
     flower = 0
+    time = 1
     while green and red:
-        while green:
+        ng = len(green)
+        nr = len(red)
+        for k in range(ng):
             x,y = green.popleft()
-            check[x][y] = 3
+            if check[x][y] == -1: continue
             for i in range(4):
                 dx = x+d[i][0]
                 dy = y+d[i][1]
                 if 0 <= dx < N and 0 <= dy < M and ground[dx][dy] > 0:
-                    if check[dx][dy] == 0: check[dx][dy] = 1
-        while red:
+                    if check[dx][dy] == 0:
+                        check[dx][dy] = time
+                        green.append((dx,dy))
+        for k in range(nr):
             x,y = red.popleft()
-            check[x][y] = 3
             for i in range(4):
                 dx = x+d[i][0]
                 dy = y+d[i][1]
                 if 0 <= dx < N and 0 <= dy < M and ground[dx][dy] > 0:
-                    if check[dx][dy] == 0: check[dx][dy] = 2
-                    elif check[dx][dy] == 1:
+                    if check[dx][dy] == 0:
+                        check[dx][dy] = time+1
+                        red.append((dx,dy))
+                    elif check[dx][dy] == time:
                         flower += 1
-                        check[dx][dy] = 3
-        for i in range(N):
-            for j in range(M):
-                if check[i][j] == 1:
-                    green.append((i,j))
-                elif check[i][j] == 2:
-                    red.append((i,j))
+                        check[dx][dy] = -1
+        time += 2
     return flower
 
 N,M,G,R = map(int,input().split())
