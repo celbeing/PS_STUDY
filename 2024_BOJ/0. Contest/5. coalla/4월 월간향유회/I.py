@@ -1,30 +1,42 @@
 # 30054: 웨이팅
 import sys
+from collections import deque
+from heapq import heappush, heappop
 input = sys.stdin.readline
 N = int(input())
+customer = sorted([tuple(map(int,input().split())) for _ in range(N)],key=lambda x: (x[1], x[0]))
+index = 0
 time = 0
-wait = [-1]*200001 # 예약시간에 저장
-rsv = []
-for _ in range(N):
-    t1,t2 = map(int,input().split())
-    if t1 >= t2: wait[t1] = -t2-1
-    rsv.append((t2, t1))
-rsv.sort()
-queued = 0 # 대기열 끝
-enter = 0  # 다음 입장
-for t in range(1,200001):
-    # 대기열에 추가
-    while queued < N and rsv[queued][0] == t: queued += 1
-    while queued > enter and wait[rsv[enter][1]] >= 0: enter += 1
+early = []
+late = deque([])
+arrived = [-1]*(200001)
+entered = [-1]*(200001)
+while time < 300001:
+    while index < N and customer[index][1] == time:
+        if customer[index][0] < time:
+            late.append(customer[index])
+        else:
+            late.append(customer[index])
+            heappush(early,customer[index])
+        arrived[customer[index][0]] = time
+        index += 1
+    poss = True
+    if early:
+        while early and entered[early[0][0]] > 0:
+            heappop(early)
+        if early and early[0][0] == time:
+            entered[heappop(early)[0]] = time
+            poss = False
+    if poss and late:
+        while late and entered[late[0][0]] > 0:
+            late.popleft()
+        if late:
+            entered[late.popleft()[0]] = time
+    time += 1
 
-    # 한 명 입장
-    if wait[t] < -1: wait[t] += t+1
-    elif queued > enter:
-        wait[rsv[enter][1]] = t-rsv[enter][0]
-        enter += 1
+longest = 0
+for i in range(1,200001):
+    wait = entered[i]-arrived[i]
+    if longest < wait: longest = wait
 
-long = 0
-for k in wait:
-    if long < k:
-        long = k
-print(long)
+print(longest)

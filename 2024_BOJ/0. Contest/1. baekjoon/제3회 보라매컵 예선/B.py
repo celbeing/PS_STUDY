@@ -1,21 +1,39 @@
 #B: 사격
 import sys
 input = sys.stdin.readline
+
 N,M,A = map(int,input().split())
-score = list(map(int,input().split()))
-score.sort()
-score.append(1e9)
-hands = [score[i] for i in range(N)]
-hands.append(-1e9)
-index = [i for i in range(N)]
+S = sorted(list(map(int,input().split())))
+S.append(int(1e11))
 
-for m in range(M):
-	for i in range(N):
-		while index[i] < N and hands[i] >= score[index[i]+1]:
-			index[i] += 1
-		hands[i] += score[index[i]]
+def check(k):
+	get = 0
+	s,e = 0,N
+	while s < e:
+		m = (s+e)//2
+		if S[m] < k:
+			if S[m+1] > k:
+				s = m
+				break
+			s = m+1
+		elif S[m] > k: e = m
+		else:
+			if S[m+1] == S[m]: s = m+1
+			else:
+				s = m
+				break
+	for n in range(M):
+		while S[s] <= k: s += 1
+		s -= 1
+		if s < 0: break
+		get += S[s]
+		k += S[s]
+	if get >= A: return True
+	else: return False
 
-for i in range(N):
-    if hands[i] - score[i] >= A:
-        print(score[i])
-        exit()
+s,e = 1,int(1e5+1)
+while s < e:
+	m = (s+e)//2
+	if check(m): e = m
+	else: s = m+1
+print(e)
