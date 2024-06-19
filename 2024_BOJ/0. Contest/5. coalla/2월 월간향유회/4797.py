@@ -1,33 +1,66 @@
 #4797: 화학
 import sys
-input = sys.stdin.readline()
+input = sys.stdin.readline
 
-def getatom(i):
-    name = chem[i]
-    num = 1
-    for k in range(1,4):
-        if i+k == n: break
-        if chem[i+k].isalpha() and chem[i+k].islower():
-            name += chem[i+k]
+def getatom(k):
+    name = chem[k]
+    count = 0
+    k += 1
+    if k < N and chem[k].islower():
+        name += chem[k]
+        k += 1
+        if k < N and chem[k].islower():
+            name += chem[k]
+            k += 1
+    while k < N and chem[k].isdigit():
+        count *= 10
+        count += int(chem[k])
+        k += 1
+    if count == 0: count = 1
+    return (name,count,k)
+
+def bracket(k):
+    stack = dict()
+    while k < N and not chem[k] == ')':
+        if chem[k] == '(':
+            inside,k = bracket(k+1)
+            for atom in inside:
+                if atom in stack:
+                    stack[atom] += inside[atom]
+                else:
+                    stack[atom] = inside[atom]
         else:
-            if chem[i+k].isdigit():
-                num = int(chem[i+k])
-            break
-    return (name,num)
+            name,count,k = getatom(k)
+            if name in stack:
+                stack[name] += count
+            else:
+                stack[name] = count
+    k += 1
+    mult = 0
+    while k < N and chem[k].isdigit():
+        mult *= 10
+        mult += int(chem[k])
+        k += 1
+    if mult == 0: mult = 1
+    for atom in stack:
+        stack[atom] *= mult
+    return (stack,k)
 
-def bracket(f):
-    now = f+1
-    ret = dict
-    while not chem[now] == ")":
-        while not chem[now].isupper(): now += 1
-        name,num = getatom(now)
-        if name in ret: ret[name] += num
-        else: ret[name] = num
-    if now+1 < n and chem[now+1].isdigit()
-    for atom in ret:
-
-for chem in input:
-    n = len(chem)
-    i = 0
-    atoms = dict()
-    while i < n:
+while True:
+    chem = input().rstrip()
+    if chem == "": break
+    N = len(chem)
+    atoms, k = bracket(0)
+    atomcount = []
+    for atom in atoms:
+        atomcount.append((atom,atoms[atom]))
+    atomcount.sort()
+    result = ""
+    for i in range(len(atomcount)-1):
+        if atomcount[i][1] > 1:
+            result += str(atomcount[i][1])
+        result += atomcount[i][0]+'+'
+    if atomcount[-1][1] > 1:
+        result += str(atomcount[-1][1])
+    result += atomcount[-1][0]
+    print(result)
