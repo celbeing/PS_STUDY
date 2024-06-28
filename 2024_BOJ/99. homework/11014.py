@@ -21,22 +21,23 @@ def bipartite(k):
 C = int(input())
 for _ in range(C):
     N,M = map(int,input().split())
-    graph = []
+    graph = [[] for _ in range((M+1)*N//2)]
     room = [list(input().rstrip()) for _ in range(N)]
     seat = 0
     for i in range(N):
         for j in range(M):
             if room[i][j] == '.': seat += 1
+
     for i in range(N):
         for j in range(0,M,2):
             if room[i][j] == '.':
                 for k in range(6):
                     di,dj = i+d[k][0],j+d[k][1]
                     if 0<=di<N and 0<=dj<M and room[di][dj] == '.':
-                        graph[j*N//2+i].append(dj*N//2+di)
+                        graph[j*N//2+i].append((dj-1)*N//2+di)
     match = [0]*(M//2*N)
     count = 0
     for i in range(M//2*N):
-        visit = [0]*(M//2*N)
+        visit = [0]*((M+1)//2*N)
         count += bipartite(i)
     print(seat-count)
