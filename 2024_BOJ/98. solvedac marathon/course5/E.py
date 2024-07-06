@@ -1,16 +1,8 @@
 import sys
 input = sys.stdin.readline
 N = int(input())
-power = 0
-stack = []
-for i in range(N):
-    p = int(input())
-    if stack:
-        if p > stack[-1]:
-            stack.append(p)
-        else:
-            stack.clear()
-            print(i)
-            
-    else:
-        stack.append(p)
+mine = [0]+[int(input()) for  _ in range(N)]+[0]
+explod = []
+for i in range(1,N+1):
+    if mine[i-1] <= mine[i] >= mine[i+1]: explod.append(i)
+for a in explod: print(a)

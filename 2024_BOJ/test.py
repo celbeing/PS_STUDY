@@ -1,1 +1,2 @@
-print(3%998244353)
+N = int(input())
+A,Pa,B,Pb = map(int,input().split())
