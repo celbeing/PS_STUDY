@@ -1,3 +1,1 @@
-n, *a = open(0).read().rstrip().split('\n')
-print(n)
-print(a)
+print([1,2,3,4,5][:6])
