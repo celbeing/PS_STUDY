@@ -19,7 +19,7 @@ for i in range(N):
         S.append(U[i] + U[j])
 S.sort()
 
-for k in range(N-1,2,-1):
+for k in range(N-1,-1,-1):
     for x in range(k):
         yz = bin(U[k]-U[x])
         if yz >= 0:
