@@ -1,6 +1,9 @@
-r = 1001
-for _ in range(int(input())):
-    A,B = map(int,input().split())
-    if B < A: continue
-    if B < r: r = B
-print(-1 if r == 1001 else r)
+import sys
+input = sys.stdin.readline
+N = int(input())
+Z = list(map(int,input().split()))
+res = 0
+for i in range(N):
+    for j in range(i+1,N):
+        res += Z[i]*Z[j]
+print(res)
