@@ -1,4 +1,5 @@
-a = 5
-b = 3.14159265358979
-print("{:.2f}".format(a))
-print("{:.4f}".format(b))
+a = {}
+a[1] = 2
+a[2] = 4
+a[3] = 6
+print(a.keys())
