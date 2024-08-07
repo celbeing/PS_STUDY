@@ -1,5 +1,7 @@
-a = {}
-a[1] = 2
-a[2] = 4
-a[3] = 6
-print(a.keys())
+def euc(a,b):
+    while b:
+        a,b = b,a%b
+    return a
+
+print(euc(-9,-3))
+print(-2415//3)
