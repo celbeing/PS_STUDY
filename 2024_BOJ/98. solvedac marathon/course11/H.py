@@ -3,3 +3,4 @@ import sys
 input = sys.stdin.readline
 board = list(input().rstrip())
 r = int(input())
+
