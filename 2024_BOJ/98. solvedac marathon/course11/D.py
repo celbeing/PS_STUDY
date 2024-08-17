@@ -5,16 +5,17 @@ N,M = map(int,input().split())
 ytb = dict()
 for _ in range(N):
     name,day,s,e = map(str,input().split())
+    day = int(day)
     h,m = map(int,s.split(":"))
     s = h*60+m
     h,m = map(int,e.split(":"))
     e = h*60+m
-    ytb[name] = ytb.get(name,[0,0])
-    ytb[name][0] += 1
-    ytb[name][1] += e-s
+    ytb[name] = ytb.get(name,[[0]*((M+6)//7) for _ in range(2)])
+    ytb[name][0][(day-1)//7] += e-s
+    ytb[name][1][(day-1)//7] += 1
 real_ytb = []
 for t in ytb:
-    if ytb[t][0] >= 5 and ytb[t][1] >= 3600:
+    if min(ytb[t][1]) >= 5 and min(ytb[t][0]) >= 3600:
         real_ytb.append(t)
 real_ytb.sort()
 if real_ytb:
