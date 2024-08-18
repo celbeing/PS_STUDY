@@ -1,1 +1,1 @@
-print(2e9)
+print(2|4)
