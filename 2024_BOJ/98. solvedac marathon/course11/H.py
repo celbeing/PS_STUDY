@@ -6,14 +6,14 @@ r = int(input())
 N = len(board)
 
 def simulate(rabbits):
-    now = [0]*N
+    rabbit = [[N]*(N-1) for _ in range(r)]
+    n = 0
     for i in range(N):
         if rabbits & 1<<i:
-            now[-i-1] = 1
-    R = []
-    for i in range(N-1, 1, -1):
-        next = [0]*i
+            rabbit[n][0] = N-i-1
+            for j in range(N-3,-1,-1):
 
+            n += 1
 
 def bt(d, i, m):
     if d == r: return simulate(m)
