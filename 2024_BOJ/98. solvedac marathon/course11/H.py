@@ -42,7 +42,7 @@ def bt(d, i, m):
         return simulate(m)
     ret = 0
     b = 1 << (N-i)
-    for j in range(N-i-r+d):
+    for j in range(N-i-r+d+1):
         b >>= 1
         ret += bt(d+1, i+j+1, m|b)
     return ret
