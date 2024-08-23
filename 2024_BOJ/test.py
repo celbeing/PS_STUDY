@@ -1,6 +1,8 @@
-from math import gcd
-
-x = int(input())
-y = int(input())
-k = gcd(x,y)
-print(x//k, y//k)
+S = int(input())
+A = int(input())
+B = int(input())
+res = 250
+while A < S:
+    A += B
+    res += 100
+print(res)
