@@ -1,3 +1,4 @@
+#28127: 숫자탑과 쿼리
 import sys
 input = sys.stdin.readline
 def solution():
