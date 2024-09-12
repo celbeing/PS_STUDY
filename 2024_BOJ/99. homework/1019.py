@@ -1,4 +1,5 @@
 #1019: 책 페이지
+import sys
 def solution():
     N = input()
     result = [0] * 10
