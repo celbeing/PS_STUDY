@@ -1,10 +1,8 @@
 import sys
 input = sys.stdin.readline
 
-def sol():
-    n = int(input())
-    res = 0
-    for _ in range(n):
-        res += int(input())
-    print(res)
-sol()
+a = set()
+a.update([1,2,3,4,5,6])
+print(a)
+for k in a:
+    print(k+1)
