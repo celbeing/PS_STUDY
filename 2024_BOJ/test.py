@@ -1,8 +1,7 @@
 import sys
 input = sys.stdin.readline
 
-a = set()
-a.update([1,2,3,4,5,6])
-print(a)
-for k in a:
-    print(k+1)
+s, d, i, l, N = map(int, input().split())
+e = s + d + i + l
+if e >= N*4: print(0)
+else: print(N*4-e)
