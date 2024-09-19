@@ -1,7 +1,11 @@
 import sys
 input = sys.stdin.readline
-
-s, d, i, l, N = map(int, input().split())
-e = s + d + i + l
-if e >= N*4: print(0)
-else: print(N*4-e)
+def solution():
+    N = int(input())
+    A = [0] + list(map(int, input().split()))
+    for i in range(2, N + 1):
+        A[i] += A[i - 1]
+    for _ in range(int(input())):
+        i, j = map(int, input().split())
+        print(A[j] - A[i - 1])
+solution()
