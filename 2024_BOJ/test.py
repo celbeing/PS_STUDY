@@ -1,6 +1,24 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    x = "12345"
-    print(x[1:3])
+    N = int(input())
+    A, B = map(int, input().split())
+    sat = [tuple(map(int, input().split())) for _ in range(N)]
+    sat.reverse()
+    dp = [[[[0] * 2 for _ in range(101)] for _ in range(101)] for _ in range(101)]
+    for n in range(1, N + 1):
+        p, q, r, s = sat.pop()
+        t = max(p, q)
+        for b in range(n + 1):
+            for a in range(n - b + 1):
+                study, rest = 0, 0
+                if a: rest = max(dp[n - 1][a - 1][b]) + s
+                if b: study = max(dp[n - 1][a][b - 1]) + t
+                dp[n][a][b][0] = max(study, rest)
+                if a + b < n: dp[n][a][b][1] = dp[n - 1][a][b][0] + r
+    high = 0
+    for a in range(A + 1):
+        for b in range(B, N + 1):
+            high = max(high, max(dp[N][a][b]))
+    print(high)
 solution()
