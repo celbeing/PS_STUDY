@@ -1,2 +1,3 @@
-m = int(input())
-print(m * (m + 1) * (m + 5) // 6 - 1)
+n, m = map(int, input().split())
+if n <= 7: print(m + 7)
+else: print(n - 7)

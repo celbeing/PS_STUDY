@@ -30,4 +30,3 @@ def solution():
             score(1, 0, n - b - 1)
             score(a - n + b + 1, 0)
         else:
-            
