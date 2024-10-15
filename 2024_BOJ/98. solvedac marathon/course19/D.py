@@ -21,12 +21,22 @@ def solution():
         score(a, b)
     elif n < a + b:
         print(0)
-        if a < n:
-            score(1, 0, a)
-            score(0, 1, n - a - 1)
-            score(0, b - n + a + 1)
-        elif b < n:
-            score(0, 1, b)
-            score(1, 0, n - b - 1)
-            score(a - n + b + 1, 0)
+        if a <= b:
+            if a < n:
+                score(1, 0, a)
+                n -= a
+                score(0, 1, n - 1)
+                score(0, b - n + 1)
+            else:
+                score(1, 0, n - 1)
+                score(a - n + 1, b)
         else:
+            if b < n:
+                score(0, 1, b)
+                n -= b
+                score(1, 0, n - 1)
+                score(a - n + 1, 0)
+            else:
+                score(0, 1, n - 1)
+                score(a, b - n + 1)
+solution()
