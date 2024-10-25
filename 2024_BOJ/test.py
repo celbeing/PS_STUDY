@@ -1,14 +1,8 @@
-a, b, k = map(int, input().split())
-res = [0] * (k + 1)
-for i in range(k + 1):
-    res[i] = a // b
-    a = (a % b) * 10
-if a // b >= 5: res[-1] += 1
-for i in range(k, 0, -1):
-    if res[i] < 10: break
-    res[i] %= 10
-    res[i - 1] += 1
-num = str(res[0])+"."
-for i in range(1, k + 1):
-    num += str(res[i])
-print(num)
+N = int(input())
+P = int(input())
+res = P
+if N >= 5: res = min(res, P - 500)
+if N >= 10: res = min(res, (P // 10) * 9)
+if N >= 15: res = min(res, P - 2000)
+if N >= 20: res = min(res, (P // 4) * 3)
+print(max(res, 0))
