@@ -12,13 +12,13 @@ def solution():
         a, b, c = map(int, input().split())
         road[a][b] = c
         road[b][a] = c
-    bfs = [(0, 1, 0)]
+    bfs = [(0, 0, 1)]
     while bfs:
-        t, now, d = heappop(bfs)
+        d, t, now = heappop(bfs)
         for next in road[now]:
             if road[now][next] > t:
                 if road[now][next] >= time[next] and dist[next] > d: continue
-                heappush(bfs, (road[now][next], next, d + 1))
+                heappush(bfs, (d + 1, road[now][next], next))
                 time[next] = road[now][next]
                 dist[next] = d + 1
                 high[next] = max(high[next], dist[next])
