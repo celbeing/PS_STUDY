@@ -7,22 +7,19 @@ def solution():
     road = [dict() for _ in range(N + 1)]
     dist = [0] * (N + 1)
     time = [0] * (N + 1)
-    high = [0] * (N + 1)
     for _ in range(M):
         a, b, c = map(int, input().split())
         road[a][b] = c
         road[b][a] = c
-    bfs = [(0, 0, 1)]
+    bfs = [(1, 0, 1)]
     while bfs:
         d, t, now = heappop(bfs)
         for next in road[now]:
-            if road[now][next] > t:
-                if road[now][next] >= time[next] and dist[next] > d: continue
+            if road[now][next] > t and (time[next] > t or dist[next] < d):
                 heappush(bfs, (d + 1, road[now][next], next))
                 time[next] = road[now][next]
-                dist[next] = d + 1
-                high[next] = max(high[next], dist[next])
-    print(*high[1:])
+                dist[next] = d
+    print(*dist[1:])
 solution()
 
 '''
