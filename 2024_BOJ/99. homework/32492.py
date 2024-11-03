@@ -15,7 +15,7 @@ def solution():
     while bfs:
         d, t, now = heappop(bfs)
         for next in road[now]:
-            if road[now][next] > t and (time[next] > t or dist[next] < d):
+            if road[now][next] > t and (dist[next] < d or time[next] > t):
                 heappush(bfs, (d + 1, road[now][next], next))
                 time[next] = road[now][next]
                 dist[next] = d
