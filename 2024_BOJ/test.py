@@ -1,6 +1,8 @@
-import sys
+import sys, random
+from collections import deque
 input = sys.stdin.readline
 def solution():
+<<<<<<< Updated upstream
     n = input().strip()
     res = "1"
     k = 2
@@ -10,4 +12,11 @@ def solution():
     if res == n:
         print(k - 1)
     else: print(-1)
+=======
+    n = int(input())
+    ori = deque([i for i in range(1, n + 1)])
+    random.random()
+    random.shuffle(ori)
+    print(ori)
+>>>>>>> Stashed changes
 solution()
