@@ -1,10 +1,13 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    A, P = map(int, input().split())
-    A *= 7
-    P *= 13
-    if A > P: print("Axel")
-    elif A < P: print("Petra")
-    else: print("lika")
+    n = input().strip()
+    res = "1"
+    k = 2
+    while int(res) < int(n):
+        res += str(k)
+        k += 1
+    if res == n:
+        print(k - 1)
+    else: print(-1)
 solution()
