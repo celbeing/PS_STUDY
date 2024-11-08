@@ -2,8 +2,8 @@ import sys, random
 from collections import deque
 input = sys.stdin.readline
 def solution():
-    a = 1
-    b = 2
-    a, b = b, a
-    print(a, b)
+    random.random()
+    num = [i for i in range(1, int(input()) + 1)]
+    random.shuffle(num)
+    print(*num)
 solution()
