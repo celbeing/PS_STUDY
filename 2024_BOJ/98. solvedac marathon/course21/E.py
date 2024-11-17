@@ -5,7 +5,10 @@ def solution():
     for _ in range(int(input())):
         N = int(input())
         cnt = 0
-        for i in range(2, int((N * 2 + 0.25)**0.5 - 0.5)+1):
-            cnt += 0 if (N - (i * (i + 1)) // 2) % i else 1
+        k = 2
+        while k * (k + 1) <= N * 2:
+            t = N - (k * (k + 1)) // 2
+            if t >= 0 and t % k == 0: cnt += 1
+            k += 1
         print(cnt)
 solution()
