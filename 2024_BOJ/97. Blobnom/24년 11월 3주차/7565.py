@@ -1,4 +1,4 @@
-# 7565: Rankin List
+# 7565: Ranking List
 import sys
 input = sys.stdin.readline
 def solution():
@@ -20,7 +20,21 @@ def solution():
                 team[h][p] -= 1
     score_board = [(name, sc) for name, sc in team.items()]
     score_board.sort(key = lambda x: (x[1][-1], x[1][0], x[0]))
-    print(score_board)
+    rank = 1
+    jump = 1
+    print('{0:>2}. {1:<8}{2:>2}{3:>5}'.format(rank, score_board[0][0], -score_board[0][1][-1], score_board[0][1][0]))
+    for i in range(1, n):
+        if score_board[i][1][0] == score_board[i - 1][1][0] and score_board[i][1][-1] == score_board[i - 1][1][-1]:
+            print('{0:>2}. {1:<8}{2:>2}{3:>5}'.format(rank, score_board[i][0], -score_board[i][1][-1],
+                                                      score_board[i][1][0]))
+            jump += 1
+        else:
+            rank += jump
+            print('{0:>2}. {1:<8}{2:>2}{3:>5}'.format(rank, score_board[i][0], -score_board[i][1][-1],
+                                                      score_board[i][1][0]))
+            jump = 1
+    print()
+
 
 for _ in range(int(input())):
     solution()
