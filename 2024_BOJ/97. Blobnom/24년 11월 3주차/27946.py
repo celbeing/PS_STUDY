@@ -6,8 +6,13 @@ def solution():
     n, m = map(int, input().split())
     date = [dict() for _ in range(n + 1)]
     link = [[] for _ in range(n + 1)]
+    start = 0
+    early = int(1e9)
     for _ in range(m):
         u, v, t = map(int, input().split())
+        if t < early:
+            early = t
+            start = u
         date[u][v] = t
         date[v][u] = t
         link[u].append(v)
@@ -21,9 +26,9 @@ def solution():
         if A == B:
             return False
         elif A < B:
-            head[b] = A
+            head[B] = A
         else:
-            head[a] = B
+            head[A] = B
         return True
 
     def find(k):
@@ -31,11 +36,23 @@ def solution():
             k = head[k]
         return k
 
-    near = []
-    heappush(near, (0, 1))
-    for i in range(1, n):
-        k, now = heappop(near)
-        for 
-
-
+    hq = []
+    gaji = [0, int(1e9)]
+    edge = 1
+    for next in link[start]:
+        heappush(hq, (date[start][next], next, start))
+    while hq and edge < n:
+        k, now, before = heappop(hq)
+        if union(now, before):
+            gaji.append(k)
+            edge += 1
+            for next in link[now]:
+                if find(now) == find(next): continue
+                heappush(hq, (date[now][next], next, now))
+    gaji.sort()
+    for i in range(1, len(gaji)):
+        if gaji[i] == i: continue
+        else:
+            print(i)
+            break
 solution()
