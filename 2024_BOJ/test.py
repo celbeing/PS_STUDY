@@ -1,12 +1,6 @@
-str = [' @@@   @@@ ',
-       '@   @ @   @',
-       '@    @    @',
-       '@         @',
-       ' @       @ ',
-       '  @     @  ',
-       '   @   @   ',
-       '    @ @    ',
-       '     @     ']
-n = int(input())
-for k in str:
-    print(k + (' ' + k) * (n - 1))
+import sys
+input = sys.stdin.readline
+def solution():
+       N, W, H, L = map(int, input().split())
+       print(min(N,(W // L) * (H // L)))
+solution()
