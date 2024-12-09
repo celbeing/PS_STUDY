@@ -2,5 +2,13 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    N = int(input())
-    for _ in range(N):
+    n = int(input())
+    high = 0
+    count = dict()
+    for _ in range(n):
+        x, t, c = map(int, input().split())
+        count[t - x] = count.get(t - x, 0) + c
+        if count[t - x] > high:
+            high = count[t - x]
+    print(high)
+solution()
