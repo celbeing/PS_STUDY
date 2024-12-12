@@ -1,7 +1,9 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    print(100000)
-    p = [i for i in range(99999, 1, -1)]
-    print(*p)
+    N = int(input())
+    M = list(input().rstrip())
+    K = int(input())
+    if K and '1' in M[-min(N, K):]: print('NO')
+    else: print('YES')
 solution()
