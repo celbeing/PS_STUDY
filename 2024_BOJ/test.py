@@ -1,9 +1,10 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    N = int(input())
-    M = list(input().rstrip())
-    K = int(input())
-    if K and '1' in M[-min(N, K):]: print('NO')
-    else: print('YES')
+    c = 0
+    for _ in range(int(input())):
+        d = int(input().lstrip('D-'))
+        if d <= 90:
+            c += 1
+    print(c)
 solution()
