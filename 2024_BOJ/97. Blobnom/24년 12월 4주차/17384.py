@@ -4,21 +4,23 @@ input = sys.stdin.readline
 write = sys.stdout.write
 def solution():
     n = int(input())
-    if n == 1:
-        write('#.')
-        return
     memo = [''] * (n + 1)
     memo[1] = "#"
     def dq(k):
+        if k == 1: return '#'
         if memo[k]: return memo[k]
-
-        if k & 1:
-            if memo[k // 2 + 1] == '': memo[k // 2 + 1] = dq(k // 2 + 1)
-            if memo[k // 2] == '': memo[k // 2] = dq(k // 2)
-            memo[k] = memo[k // 2 + 1] + memo[k // 2] + '.' * (len(memo[k // 2 + 1]) - len(memo[k // 2]))
+        b = 1
+        while b < k: b <<= 1
+        d = (b * 3) // 4
+        b >>= 1
+        if k > d:
+            memo[b] = dq(b)
+            memo[k - b] = dq(k - b)
+            return memo[b] + memo[k - b]
         else:
-            if memo[k // 2] == '': memo[k // 2] = dq(k // 2)
-            memo[k] = memo[k // 2] * 2
-        return memo[k]
+            b >>= 1
+            memo[k - b] = dq(k - b)
+            memo[b] = dq(b)
+            return memo[k - b] + memo[b] + '.' * b
     write(dq(n))
 solution()
