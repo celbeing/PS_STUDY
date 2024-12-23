@@ -1,5 +1,6 @@
 import sys
 input = sys.stdin.readline
+from sys import getsizeof
 def solution():
-    print("#"*1000000)
+    return 0
 solution()
