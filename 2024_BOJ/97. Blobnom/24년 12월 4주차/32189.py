@@ -3,6 +3,7 @@ import sys
 input = sys.stdin.readline
 def solution():
     s = list(input().strip())
+    n = len(s)
     def lcs(a, b):
         dp = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
         for i in range(len(a) + 1):
@@ -13,9 +14,8 @@ def solution():
                 else:
                     dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
         return min(len(a), len(b)) - dp[-1][-1]
-    result = 0
-    for i in range(len(s) - 1, 0, -1):
-        if i < result: break
-        result = max(result, lcs(s[:i], s[i:]))
-    print(result)
+    if n & 1:
+        print(max(lcs(s[:n // 2], s[n // 2:]), lcs(s[:n // 2 + 1], s[n // 2 + 1:])))
+    else:
+        print(lcs(s[:n // 2], s[n // 2:]))
 solution()
