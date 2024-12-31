@@ -1,5 +1,6 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    print(sys.getsizeof([]))
+    k =2
+    print(k.bit_length())
 solution()
