@@ -2,11 +2,14 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    n = int(input().split())
+    n = int(input())
     c = list(map(int, input().split()))
-    count = 0
-    for i in range(n - 1):
-        for j in range(i + 1, n):
-            a = c[i]
-            b = c[j]
-            while 
+    def euc(a, b):
+        while b != 0:
+            a, b = b, a % b
+        return a
+    k = c[0]
+    for i in range(1, n):
+        k = euc(k, c[i])
+    print("Alice" if (max(c) // k - len(c)) & 1 else "Bob")
+solution()
