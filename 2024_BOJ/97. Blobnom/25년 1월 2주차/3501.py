@@ -1,3 +1,4 @@
+# 3501: 최대공약수 맞추기 게임
 import sys
 input = sys.stdin.readline
 def solution():
