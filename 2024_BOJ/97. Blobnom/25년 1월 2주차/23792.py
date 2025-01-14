@@ -3,43 +3,29 @@ import sys
 input = sys.stdin.readline
 def solution():
     n = int(input())
-    a = [0] + list(map(int, input().split()))
-    b = [0] + list(map(int, input().split()))
-    c = [0] + list(map(int, input().split()))
-    for _ in range(int(input())):
-        x, y, z, k = map(int, input().split())
-        s, e = 0, max(a[x], max(b[y], c[z]))
+    food = [[0] + list(map(int, input().split())) for _ in range(2)]
+    def find(a, b, x, y, k):
+        s, e = 0, x
         while s <= e:
-            m = (s + e + 1) // 2
-            sa, sb, sc = 1, 1, 1
-            ea, eb, ec = x, y, z
-            while sa < ea:
-                ma = (sa + ea + 1) // 2
-                if a[ma] <= m: sa = ma
-                else: ea = ma - 1
+            m = (s + e) // 2
+            sb,eb, = 0, y
             while sb < eb:
                 mb = (sb + eb + 1) // 2
-                if b[mb] < m:
+                if food[b][mb] <= food[a][m]:
                     sb = mb
                 else:
                     eb = mb - 1
-            while sc < ec:
-                mc = (sc + ec + 1) // 2
-                if c[mc] < m:
-                    sc = mc
-                else:
-                    ec = mc - 1
-            if sa + sb + sc == k:
-                res = max(a[sa], max(b[sb], c[sc]))
-                if res == a[sa]:
-                    print(1, sa)
-                elif res == b[sb]:
-                    print(2, sb)
-                else:
-                    print(3, sc)
-                break
-            elif sa + sb + sc < k:
-                s = m
+            t =  m + eb
+            if t == k:
+                print(a + 1, m)
+                return 1
+            elif t < k:
+                s = m + 1
             else:
                 e = m - 1
+        return 0
+    for _ in range(int(input())):
+        x, y, k = map(int, input().split())
+        if find(0, 1, x, y, k): pass
+        else: find(1, 0, y, x, k)
 solution()
