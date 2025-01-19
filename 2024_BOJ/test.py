@@ -1,6 +1,10 @@
 import sys
 input = sys.stdin.readline
 def solution():
-    for k in input().strip():
-        print(k)
+    d = dict()
+    for _ in range(int(input())):
+        n = int(input())
+        d[n] = d.get(n, 0) + 1
+    s = sorted(d)
+    print(s)
 solution()
