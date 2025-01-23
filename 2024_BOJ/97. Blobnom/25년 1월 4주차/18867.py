@@ -2,6 +2,20 @@
 import sys
 input = sys.stdin.readline
 def solution():
+    k = ord(input().rstrip())
+    p = k
+    for _ in range(813):
+        k *= p
+        k %= 20200429
+    c = 1
+    p = k
+    while k != 20200402:
+        k += p
+        k %= 20200429
+        c += 1
+    print(c)
+'''
+def solution():
     t = []
     a = dict()
     mod = 20200429
@@ -18,7 +32,6 @@ def solution():
         if d == 5:
             if y == 20200402:
                 print(path)
-                exit()
             return
 
         for i in range(62):
@@ -26,4 +39,6 @@ def solution():
         return
     dfs(0, 0, '')
     print("there is no answer")
-solution()
+'''
+while True:
+    solution()
