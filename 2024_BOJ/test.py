@@ -1,10 +1,14 @@
 import sys
-from collections import deque
-from bisect import bisect_right as bi
-from bisect import bisect_left as bi_l
 input = sys.stdin.readline
 def solution():
-    l = [1,2,3,3,3,3,4,5,6,6,7]
-    print(bi(l, 3))
-    print(bi_l(l, 3))
+    def euc(a, b):
+        while b != 0:
+            a, b = b, a % b
+        return a
+    total = 20358520
+    case = [6612900,9730740,2532816,732160,282060,39780,39780,205976,165984,14664,1472,188]
+    print(sum(case))
+    for c in case:
+        t = euc(total, c)
+        print(f"{c//t}/{total//t}")
 solution()
