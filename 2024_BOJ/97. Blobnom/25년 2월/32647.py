@@ -49,11 +49,12 @@ for p in range(a, b + 1):
 
 conj = dict()
 numbers = set()
+sorted_list = [0]
 conj[0] = 1
 numbers.add(0)
 for p in prime:
     new_num = set()
-    for now in numbers:
+    for now in sorted_list:
         next = p + now
         if next > k: continue
         if next in conj: conj[next] += conj[now]
@@ -61,5 +62,6 @@ for p in prime:
             conj[next] = conj[now]
             new_num.add(next)
     numbers.update(new_num)
+    sorted_list = sorted(list(numbers), reverse = True)
 if k in conj: print(conj[k])
 else: print(0)
