@@ -9,7 +9,7 @@ def fast_mod_power(a, b, m):
     ret = 1
     a %= m
     while b:
-        if b % 1:
+        if b & 1:
             ret *= a
             ret %= m
         b >>= 1
