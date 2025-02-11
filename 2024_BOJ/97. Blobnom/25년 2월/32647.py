@@ -47,4 +47,18 @@ for p in range(a, b + 1):
     if is_prime(p):
         prime.append(p)
 
-print()
+conj = dict()
+numbers = set()
+conj[0] = 1
+numbers.add(0)
+for p in prime:
+    new_num = set()
+    for now in numbers:
+        next = p + now
+        if next in conj: conj[next] += conj[now]
+        else:
+            conj[next] = conj[now]
+            new_num.add(next)
+    numbers.update(new_num)
+if k in conj: print(conj[k])
+else: print(0)
