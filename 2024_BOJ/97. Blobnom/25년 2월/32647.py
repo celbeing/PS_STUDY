@@ -55,6 +55,7 @@ for p in prime:
     new_num = set()
     for now in numbers:
         next = p + now
+        if next > k: continue
         if next in conj: conj[next] += conj[now]
         else:
             conj[next] = conj[now]
