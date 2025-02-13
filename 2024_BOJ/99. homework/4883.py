@@ -8,7 +8,7 @@ def solution():
         if n == 0: break
         cost = [[],[]]
         cost[0] = list(map(int, input().split()))
-        cost[0][0] = int(1e9)
+        cost[0][0] = cost[0][2] = int(1e9)
         for _ in range(n - 1):
             cost[1] = list(map(int, input().split()))
             now = [int(1e9)] * 3
