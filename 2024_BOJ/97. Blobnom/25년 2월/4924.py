@@ -18,6 +18,12 @@ def solution():
     while True:
         l, u = map(int, input().split())
         if l < 0: break
-
-    print()
+        res = -10000000
+        for i in range(l, u + 1):
+            for j in range(i, u + 1):
+                k = sieve[j] - sieve[i - 1] - j + i - 1
+                if res < k:
+                    res = k
+        print(f'{t}. {res}')
+        t += 1
 solution()
