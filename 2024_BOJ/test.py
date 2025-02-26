@@ -1,15 +1,13 @@
-import os
-import sys
+from itertools import count
+from math import gcd
 
+number, x = 4020433, 2
 
-
-def main():
-    input_num = int(input())
-    prime_list = find_prime(input_num)
-    check_num  = 1
-    for prime_at in prime_list:
-        check_num *= prime_at
-    print("[%s] input_num=%d, check_num=%d" % (input_num == check_num, input_num, check_num))
-    print("%s" % prime_list)
-
-main()
+for cycle in count(1):
+    y = x
+    for i in range(2 ** cycle):
+        x = (x * x + 1) % number
+        factor = gcd(x - y, number)
+        if factor > 1:
+            print("factor is", factor)
+            exit()
