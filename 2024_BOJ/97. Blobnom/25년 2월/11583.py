@@ -16,4 +16,3 @@ def solution():
                 factor[i][1] += 1
         dp = [[0, 0] for _ in range(n)]
         dp[0] = factor[0]
-        
