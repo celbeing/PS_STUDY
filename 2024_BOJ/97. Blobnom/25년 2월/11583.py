@@ -14,11 +14,6 @@ def solution():
                 f[i][0] += 1
             while a % 5 == 0:
                 a //= 5
-<<<<<<< Updated upstream
-                factor[i][1] += 1
-        dp = [[0, 0] for _ in range(n)]
-        dp[0] = factor[0]
-=======
                 f[i][1] += 1
         dp = [[inf, inf, inf, inf] for _ in range(n)]
         dp[0] = [f[0][0], f[0][1]]
@@ -30,4 +25,3 @@ def solution():
                     dp[i][1] = dp[j][1] + f[i][1]
         print(min(dp[-1]))
 solution()
->>>>>>> Stashed changes
