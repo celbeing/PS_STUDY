@@ -5,13 +5,13 @@ def solution():
     n, t = map(int, input().split())
     lr = [tuple(map(int, input().split())) for _ in range(n)]
     maxsum = 0
-    minimum = 1000000
+    minimum = 0
     minsum = t
     for l, r in lr:
         maxsum += r
         minsum -= l
-        minimum = min(l, minimum)
-    if maxsum < t:
+        minimum = max(l, minimum)
+    if maxsum < t or minsum < 0:
         print(-1)
         return
     s, e = minimum, t + 1
