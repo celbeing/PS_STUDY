@@ -1,18 +1,12 @@
-import random
-random.random()
-file = open(r"C:\Users\kimsd\OneDrive\바탕 화면\tc\1.in", 'w')
-a = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-w = file.writelines('17576\n')
-rec = dict()
-lst = []
-for i in range(26):
-    for j in range(26):
-        for k in range(26):
-            t = a[i] + a[j] + a[k]
-            rec[t] = random.randint(1,100)
-            lst.append(t)
-            w = file.writelines(f'{t} {rec[t]}\n')
-random.shuffle(lst)
-w = file.writelines('17576\n')
-for k in lst:
-    w = file.writelines(f'{k}\n')
+t = int(input())
+a = list(map(int, input().split()))
+for p in a:
+  is_prime = True
+  if p == 1: is_prime = False
+  for i in range(2, p):
+    if p % i:
+      continue
+    else:
+      is_prime = False
+      break
+  print('YES' if is_prime else 'NO')

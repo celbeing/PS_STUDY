@@ -13,7 +13,7 @@ testcases = [0, 100000, 99991]
 for _ in range(25):
     testcases.append(prime.pop())
     testcases.append(random.randint(1,100000))
-path = "C:\\Users\\kimsd\\OneDrive\\바탕 화면\\tc\\"
+path = "C:\\Users\\kimsd\\Documents\\GitHub\\2024_BOJ\\coalla OJ\\13 소수판정-1\\"
 for i in range(1, 53):
     file = open(path + f"{i}.in", 'w+')
     w = file.writelines(f"{testcases[i]}")
