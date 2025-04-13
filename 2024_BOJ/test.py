@@ -1,9 +1,6 @@
-table = dict()
-N = int(input())
-for i in range(N):
-	A, B = map(str, input().split())
-	table[A] = B
-M = int(input())
-for i in range(M):
-	C = input()
-	print(table[C])
+def solution():
+    n = int(input())
+    small = [1, 4, 10, 20, 35, 56, 83, 116, 155, 198, 244, 292]
+    if n < 12: print(small[n])
+    else: print(n * 49 - 247)
+solution()
