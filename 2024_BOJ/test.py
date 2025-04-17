@@ -1,6 +1,15 @@
-def solution():
-    n = int(input())
-    small = [1, 4, 10, 20, 35, 56, 83, 116, 155, 198, 244, 292]
-    if n < 12: print(small[n])
-    else: print(n * 49 - 247)
-solution()
+mod = int(1e9 + 7)
+
+def fast_power(n, k):
+    ret = 1
+    while k:
+        if k & 1:
+            ret *= n
+            ret %= mod
+        n **= 2
+        n %= mod
+        k //= 2
+    return ret
+
+n, k = map(int, input().split())
+print(fast_power(n, k))
