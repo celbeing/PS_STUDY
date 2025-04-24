@@ -8,8 +8,9 @@ t = int(input())
 
 def TSP(now, visit, time):
     if tsp_dp[now][visit] == 0:
-        
-
+        for i in range(1, gift_count):
+            if link[now][i] == 0 or visit & (1 << i): continue
+            tsp_dp[now][visit] =
     return
 
 for _ in range(t):
