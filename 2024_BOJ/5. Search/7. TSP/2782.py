@@ -8,7 +8,6 @@ t = int(input())
 
 def TSP(now, visit, time):
     if tsp_dp[now][visit] == 0:
-        
 
     return
 
