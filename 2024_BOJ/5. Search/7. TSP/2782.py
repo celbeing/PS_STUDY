@@ -11,10 +11,10 @@ def TSP(now, visit):
         for i in range(1, gift_count):
             if link[now][i] == inf or visit & 1 << i: continue
 
-            k = TSP(i, visit | 1 << i) + link[now][i] + route_lenth[i][visit | 1 << i]
+            k = TSP(i, visit | 1 << i) + link[now][i] + dist[i][visit | 1 << i]
             if k < tsp_dp[now][visit]:
                 tsp_dp[now][visit] = k
-                route_lenth[now][visit] = route_lenth[i][visit | 1 << i] + link[now][i]
+                dist[now][visit] = dist[i][visit | 1 << i] + link[now][i]
     return tsp_dp[now][visit]
 
 for _ in range(t):
@@ -63,14 +63,14 @@ for _ in range(t):
                         bfs.append((dx, dy))
             distance += 1
     tsp_dp = [[inf] * (1 << gift_count + 1) for _ in range(gift_count + 1)]
-    route_lenth = [[0] * (1 << gift_count + 1) for _ in range(gift_count + 1)]
+    dist = [[0] * (1 << gift_count + 1) for _ in range(gift_count + 1)]
 
     # Q로 돌아가는 경로 설정
     k = 1 << gift_count
     k -= 1
     for i in range(gift_count):
         tsp_dp[i][k] = link[i][gift_count]
-        route_lenth[i][k] = link[i][gift_count]
+        dist[i][k] = link[i][gift_count]
     link[0][0] = 0
     TSP(0, 1)
 
@@ -78,9 +78,9 @@ for _ in range(t):
 
     for i in range(gift_count):
         for j in range(1, 1 << gift_count, 2):
-            if tsp_dp[i][j] + link[0][i] + (route_lenth[i][j] if i else 0) <= limit:
+            if tsp_dp[i][j] + link[0][i] + (dist[i][j] if i else 0) <= limit:
                 count = 0
                 for k in range(1, gift_count):
-                    if not(j & (1 << k)): count += 1
+                    if not (j & (1 << k)): count += 1
                 if res < count: res = count
     print(res)
