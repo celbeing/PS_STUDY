@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.13">
+  <diagram name="페이지-1" id="QW0p_PAGHaeXPbZuBU55">
+    <mxGraphModel dx="933" dy="759" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="j2lez5BVP6awKlo6L7Ai-1" target="j2lez5BVP6awKlo6L7Ai-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-1" value="왕(0)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="140" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-2" value="여왕(6)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="700" y="210" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-3" value="4" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="370" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-4" value="1" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="140" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-5" value="2" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="370" y="260" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-6" value="3" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="520" y="210" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-7" value="5" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="470" y="430" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-16" value="dp[i][v] = i번째 노드에서 출발하고, v에 0인 비트 정점들을 방문해서 순회하는 최적해" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="680" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-22" value="dp[1][7]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="510" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-23" value="0000111" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="380" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="j2lez5BVP6awKlo6L7Ai-30" value="dist[0][1]" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="510" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

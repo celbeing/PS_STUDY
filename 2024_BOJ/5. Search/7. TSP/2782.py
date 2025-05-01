@@ -1,24 +1,28 @@
 # 2782: 로맨틱 왕
 import sys
 from collections import deque
+sys.setrecursionlimit(10000)
 input = sys.stdin.readline
-inf = int(1e9)
+inf = 1000000
 d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 t = int(input())
 
 def TSP(now, visit):
     if tsp_dp[now][visit] == inf:
+        bit = 1
         for i in range(1, gift_count):
-            if link[now][i] == inf or visit & 1 << i: continue
+            bit <<= 1
+            if link[now][i] > limit or visit & bit: continue
 
-            k = TSP(i, visit | 1 << i) + link[now][i] + dist[i][visit | 1 << i]
+            k = TSP(i, visit | bit) + link[now][i] + dist[i][visit | bit]
             if k < tsp_dp[now][visit]:
                 tsp_dp[now][visit] = k
-                dist[now][visit] = dist[i][visit | 1 << i] + link[now][i]
+                dist[now][visit] = dist[i][visit | bit] + link[now][i]
     return tsp_dp[now][visit]
 
 for _ in range(t):
     h, w, limit = map(int, input().split())
+    if limit > inf: limit = inf - 1
     city = [list(input().strip()) for _ in range(h)]
 
     # 좌표 확인
@@ -62,8 +66,8 @@ for _ in range(t):
                             if i: link[j][i] = distance
                         bfs.append((dx, dy))
             distance += 1
-    tsp_dp = [[inf] * (1 << gift_count + 1) for _ in range(gift_count + 1)]
-    dist = [[0] * (1 << gift_count + 1) for _ in range(gift_count + 1)]
+    tsp_dp = [[inf] * (1 << gift_count) for _ in range(gift_count + 1)]
+    dist = [[0] * (1 << gift_count) for _ in range(gift_count + 1)]
 
     # Q로 돌아가는 경로 설정
     k = 1 << gift_count
@@ -78,9 +82,11 @@ for _ in range(t):
 
     for i in range(gift_count):
         for j in range(1, 1 << gift_count, 2):
-            if tsp_dp[i][j] + link[0][i] + (dist[i][j] if i else 0) <= limit:
+            if tsp_dp[i][j] < inf and tsp_dp[i][j] + link[0][i] + (dist[i][j] if i else 0) <= limit:
                 count = 0
+                bit = 1
                 for k in range(1, gift_count):
-                    if not (j & (1 << k)): count += 1
+                    bit <<= 1
+                    if not (j & bit): count += 1
                 if res < count: res = count
     print(res)
