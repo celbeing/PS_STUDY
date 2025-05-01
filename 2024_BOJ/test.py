@@ -1,10 +1,11 @@
-path = "C:\\Users\\kimsd\\Desktop\\"
-file_no = 1
-while True:
-    i = input()
-    file = open(path + f"{file_no}.in", 'w')
-    w = file.writelines(f'{i}')
-    p, q = map(str, i.split())
-    file = open(path + f"{file_no}.out", 'w')
-    w = file.writelines(f'{p}\n{q}')
-    file_no += 1
+h, d, s = map(int, input().split())
+a, b = 0, 0
+while h > 0:
+    sa = (h * s) // 100
+    if sa > d:
+        b += 1
+        h -= sa
+    else:
+        a += 1
+        h -= d
+print(a, b)
