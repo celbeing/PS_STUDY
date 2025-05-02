@@ -1,7 +1,6 @@
-import sys
-
+import sys, math
+input = sys.stdin.readline
 h, d, s = map(int, input().split())
-sys.setrecursionlimit()
 def fast_exp(n, k):
     ret = 1
     while k:
@@ -11,27 +10,20 @@ def fast_exp(n, k):
         k >>= 1
     return ret
 
-i = 0
-t = h
-p = (100 - s) / 100
-while t >= 1:
-    t *= p
-    i += 1
-print(f'{i}번째 예상 = {h * fast_exp(p, i)}')
+def sleep_damage(hp, count, p):
+    ret = hp * fast_exp(p, count - 1)
+    ret -= hp * fast_exp(p, count)
+    return ret
 
+p = (100 - s) / 100
 i, j = 0, 3000
 while i < j:
-    m = (i + j) // 2
-    k = h * fast_exp(p, m)
-    if k * p > d:
-        i = m + 1
+    m = (i + j + 1) // 2
+    k = sleep_damage(h, m, p)
+    if k > d:
+        i = m
     else:
-        j = m
-print(f'예상 수면참 횟수: {i}회')
-
-count = 1
-s /= 100
-while h > d:
-    h -= h * s
-    print(f'공격 {count}회차 체력: {h}')
-    count += 1
+        j = m - 1
+h *= fast_exp(p, i)
+j = math.ceil(h / d)
+print(j, i)
