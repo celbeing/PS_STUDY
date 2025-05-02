@@ -8,24 +8,26 @@ d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 t = int(input())
 
 def TSP(now, visit):
-    if tsp_dp[now][visit] == -1:
-        return inf
     if tsp_dp[now][visit] == inf:
         bit = 1
         for i in range(1, gift_count):
             bit <<= 1
             if link[now][i] > limit or visit & bit: continue
 
-            k = TSP(i, visit | bit) + link[now][i] + dist[i][visit | bit]
+            k = TSP(i, visit | bit)
+            new_dist = link[now][i] + dist[i][visit | bit]
+            k += new_dist
             # 이미 탐색한 곳이 연결되어있지 않아서 값이 갱신된 이력이 없는 경우,
             # 불필요하게 불가능한 탐색을 계속 이어갈 수 있음
             # 한 번 확인해서 불가능한 경로임이 확인된 경우,
-            # tsp_dp 값을 -1로 설정,
-            # 값이 -1로 된 곳은 탐색할 필요가 없는 것으로 설정
+            # tsp_dp 값을 inf + 1로 설정,
+            # 값이 inf가 아닌 곳은 탐색할 필요가 없는 것으로 설정
             if k < tsp_dp[now][visit]:
                 tsp_dp[now][visit] = k
-                dist[now][visit] = dist[i][visit | bit] + link[now][i]
-    if tsp_dp[now][visit] == inf: tsp_dp[now][visit] = -1
+                dist[now][visit] = new_dist
+            elif k == tsp_dp[now][visit] and dist[now][visit] > new_dist:
+                dist[now][visit] = new_dist
+    if tsp_dp[now][visit] == inf: tsp_dp[now][visit] += 1
     return tsp_dp[now][visit]
 
 for _ in range(t):
@@ -88,13 +90,24 @@ for _ in range(t):
 
     res = 0
 
-    for i in range(gift_count):
+    for i in range(1, 1 << gift_count, 2):
+        if tsp_dp[0][i] <= limit:
+            count = 0
+            bit = 1
+            for k in range(1, gift_count):
+                bit <<= 1
+                if not(i & bit): count += 1
+            if res < count:
+                res = count
+
+    for i in range(1, gift_count):
         for j in range(1, 1 << gift_count, 2):
             if 0 < tsp_dp[i][j] < inf and tsp_dp[i][j] + link[0][i] + (dist[i][j] if i else 0) <= limit:
-                count = 0
+                count = 1
                 bit = 1
                 for k in range(1, gift_count):
                     bit <<= 1
                     if not (j & bit): count += 1
-                if res < count: res = count
+                if res < count:
+                    res = count
     print(res)
