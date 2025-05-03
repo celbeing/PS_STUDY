@@ -1,7 +1,6 @@
 # 2782: 로맨틱 왕
 import sys
 from collections import deque
-sys.setrecursionlimit(10000)
 input = sys.stdin.readline
 inf = 1000000
 d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
@@ -12,45 +11,67 @@ def TSP(now, visit):
         bit = 1
         for i in range(1, gift_count):
             bit <<= 1
-            if link[now][i] > limit or visit & bit: continue
+            if visit & bit: continue
 
             k = TSP(i, visit | bit)
             new_dist = link[now][i] + dist[i][visit | bit]
             k += new_dist
-            # 이미 탐색한 곳이 연결되어있지 않아서 값이 갱신된 이력이 없는 경우,
-            # 불필요하게 불가능한 탐색을 계속 이어갈 수 있음
-            # 한 번 확인해서 불가능한 경로임이 확인된 경우,
-            # tsp_dp 값을 inf + 1로 설정,
-            # 값이 inf가 아닌 곳은 탐색할 필요가 없는 것으로 설정
+
+            # k가 현재 저장된 값보다 작은 경우
+            # tsp_dp와 dist를 모두 갱신
+            # k는 같은데 dist가 더 짧아질 수 있는 경우
+            # dist만 갱신
             if k < tsp_dp[now][visit]:
                 tsp_dp[now][visit] = k
                 dist[now][visit] = new_dist
             elif k == tsp_dp[now][visit] and dist[now][visit] > new_dist:
                 dist[now][visit] = new_dist
-    if tsp_dp[now][visit] == inf: tsp_dp[now][visit] += 1
     return tsp_dp[now][visit]
 
 for _ in range(t):
     h, w, limit = map(int, input().split())
-    if limit > inf: limit = inf - 1
     city = [list(input().strip()) for _ in range(h)]
 
     # 좌표 확인
-    gift = [(0, 0)]
+    gift = deque()
     gift_cor = dict()
     gift_count = 1
+    kx, ky = 0, 0
     qx, qy = 0, 0
+    check_king = [[0] * w for _ in range(h)]
     for i in range(h):
         for j in range(w):
             if city[i][j] == 'K':
-                gift[0] = (i, j)
+                kx, ky = i, j
                 gift_cor[(i, j)] = 0
+                bfs_king = deque([(i, j)])
+                check_king[i][j] = 1
+                while bfs_king:
+                    x, y = bfs_king.popleft()
+                    for k in range(4):
+                        dx, dy = x + d[k][0], y + d[k][1]
+                        if 0 <= dx < h and 0 <= dy < w and check_king[dx][dy] == 0 and city[dx][dy] != '#':
+                            bfs_king.append((dx, dy))
+                            check_king[dx][dy] = 1
             elif city[i][j] == 'Q':
                 qx, qy = i, j
             elif city[i][j] == 'G':
                 gift.append((i, j))
-                gift_cor[(i, j)] = gift_count
                 gift_count += 1
+
+    # K에서 닿지 않는 G는 그래프에서 제외
+    real_gift_count = 1
+    not_gift_count = 0
+    gift.append((kx, ky))
+    for i in range(gift_count - 1):
+        gx, gy = gift.popleft()
+        if check_king[gx][gy]:
+            gift_cor[(gx, gy)] = real_gift_count
+            gift.append((gx, gy))
+            real_gift_count += 1
+        else:
+            not_gift_count += 1
+    gift_count -= not_gift_count
     gift.append((qx, qy))
     gift_cor[(qx, qy)] = gift_count
     link = [[inf] * (gift_count + 1) for _ in range(gift_count + 1)]
@@ -90,6 +111,7 @@ for _ in range(t):
 
     res = 0
 
+    # K에서 출발하는 최적해 확인
     for i in range(1, 1 << gift_count, 2):
         if tsp_dp[0][i] <= limit:
             count = 0
@@ -100,9 +122,10 @@ for _ in range(t):
             if res < count:
                 res = count
 
+    # G에서 출발하는 최적해에 K를 연결
     for i in range(1, gift_count):
         for j in range(1, 1 << gift_count, 2):
-            if 0 < tsp_dp[i][j] < inf and tsp_dp[i][j] + link[0][i] + (dist[i][j] if i else 0) <= limit:
+            if tsp_dp[i][j] + link[0][i] + dist[i][j] <= limit:
                 count = 1
                 bit = 1
                 for k in range(1, gift_count):
