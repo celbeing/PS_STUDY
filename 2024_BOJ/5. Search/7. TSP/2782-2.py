@@ -1,39 +1,27 @@
-# 2782: 로맨틱 왕
+# 2782: 로맨틱 왕(brute-force)
 import sys
 from collections import deque
 input = sys.stdin.readline
-inf = 1000000
+
+inf = 400_000
 d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 t = int(input())
 
-def TSP(now, visit):
-    if tsp_dp[now][visit] == inf:
-        bit = 1
+def TSP(now, visit, depth, time):
+    ret = 0
+    bit = 1
+    if depth < gift_count:
         for i in range(1, gift_count):
             bit <<= 1
             if visit & bit: continue
+            new_time = time + (link[now][i] * depth)
+            if new_time > limit: continue
+            ret = max(ret, TSP(i, visit | bit, depth + 1, new_time))
 
-            k = TSP(i, visit | bit)
-            new_dist = link[now][i] + dist[i][visit | bit]
-            k += new_dist
-
-            # k가 현재 저장된 값보다 작은 경우
-            # tsp_dp와 dist를 모두 갱신
-            # k는 같은데 dist가 더 짧아질 수 있는 경우
-            # dist만 갱신
-            if k < tsp_dp[now][visit]:
-                tsp_dp[now][visit] = k
-                dist[now][visit] = new_dist
-            elif k == tsp_dp[now][visit] and dist[now][visit] > new_dist:
-                dist[now][visit] = new_dist
-
-            '''
-            # tsp_dp 갱신 조건 변경
-            if k + new_dist < tsp_dp[now][visit] + dist[now][visit]:
-                tsp_dp[now][visit] = k
-                dist[now][visit] = new_dist
-            '''
-    return tsp_dp[now][visit]
+    queen_time = time + (link[now][gift_count] * depth)
+    if queen_time <= limit:
+        ret = max(ret, depth - 1)
+    return ret
 
 for _ in range(t):
     h, w, limit = map(int, input().split())
@@ -89,9 +77,8 @@ for _ in range(t):
         check = [[0] * w for _ in range(h)]
         bfs.append((gift[i]))
         check[bfs[0][0]][bfs[0][1]] = 1
-        distance = 0
+        distance = 1
         while bfs:
-            distance += 1
             roop_count = len(bfs)
             for _ in range(roop_count):
                 x, y = bfs.popleft()
@@ -101,41 +88,10 @@ for _ in range(t):
                         check[dx][dy] = 1
                         if city[dx][dy] != '.':
                             j = gift_cor[(dx, dy)]
-                            link[i][j] = distance
-                            link[j][i] = distance
+                            if j: link[i][j] = distance
+                            if i: link[j][i] = distance
                         bfs.append((dx, dy))
+            distance += 1
 
-    tsp_dp = [[inf] * (1 << gift_count) for _ in range(gift_count + 1)]
-    dist = [[0] * (1 << gift_count) for _ in range(gift_count + 1)]
-
-    # Q로 돌아가는 경로 설정
-    k = (1 << gift_count) - 1
-    for i in range(gift_count):
-        tsp_dp[i][k] = link[i][gift_count]
-        dist[i][k] = link[i][gift_count]
-    TSP(0, 1)
-
-    # K에서 출발하는 최적해 확인
-    res = 0
-    for i in range(1, 1 << gift_count, 2):
-        if tsp_dp[0][i] <= limit:
-            count = 0
-            bit = 1
-            for k in range(1, gift_count):
-                bit <<= 1
-                if not(i & bit): count += 1
-            if res < count:
-                res = count
-
-    # G에서 출발하는 최적해에 K를 연결
-    for i in range(1, gift_count):
-        for j in range(1, 1 << gift_count, 2):
-            if tsp_dp[i][j] + link[0][i] + dist[i][j] <= limit:
-                count = 1
-                bit = 1
-                for k in range(1, gift_count):
-                    bit <<= 1
-                    if not (j & bit): count += 1
-                if res < count:
-                    res = count
+    res = TSP(0, 1, 1, 0)
     print(res)
