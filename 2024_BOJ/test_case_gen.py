@@ -1,14 +1,11 @@
 import random, math
 random.random()
 
-path = r"C:\Users\kimsd\Desktop\tc"
+path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
 
 for i in range(1, 51):
     file = open(path + f"{i}.in", "w+", encoding = 'utf-8')
-    a = int(input())
+    a = random.randint(0,50000)
     w = file.writelines(f"{a}")
     file = open(path + f"{i}.out", "w+", encoding = 'utf-8')
-    if a & 1:
-        w = file.writelines(f"한 명 남아요.")
-    else:
-        w = file.writelines(f"출발!")
+    w = file.writelines(f"{50000-a}")
