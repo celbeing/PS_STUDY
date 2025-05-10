@@ -1,4 +1,2 @@
-if 0.1:
-    print(1)
-else:
-    print(0)
+a = 'abcdef'
+print(a[1:-1:2])
