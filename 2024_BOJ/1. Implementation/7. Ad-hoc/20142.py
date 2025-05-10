@@ -1,8 +1,8 @@
-# 20141: Vista 4
+# 20142: Vista 5
 import sys
 input = sys.stdin.readline
 def solution():
-    f = open(r"C:\Users\kimsd\Downloads\4.in", "r")
+    f = open(r"C:\Users\kimsd\Downloads\5.in", "r")
     n = int(f.readline())
     dots = []
     for i in range(1, n + 1):
