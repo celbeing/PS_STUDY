@@ -1,4 +1,3 @@
-a = input()
-b = input()
-print(a + b)
-k = int('아')
+a = [1, 2, 3]
+print(a[1:])
+print(a[:1])
