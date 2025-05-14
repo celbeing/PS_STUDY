@@ -1,5 +1,4 @@
-m = int(input())
-a = int(input())
-b = int(input())
-if a <= b: print(b - a)
-else: print(m - a + b)
+import sys
+
+print(sys.getsizeof(int(1e9)))
+print(sys.getsizeof(int(1)))
