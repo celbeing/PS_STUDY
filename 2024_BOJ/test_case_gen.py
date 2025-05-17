@@ -1,11 +1,16 @@
 import random, math
 random.random()
 
-path = r"C:\Users\kimsd\Desktop\tc\\"
+path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
 
-for i in range(6, 21):
+for i in range(1, 21):
     file = open(path + f"{i}.in", "w+", encoding = 'utf-8')
-    a = random.randint(2,999)
+    a = int(input())
     w = file.writelines(f"{a}")
     file = open(path + f"{i}.out", "w+", encoding = 'utf-8')
-    w = file.writelines(f"{a ** 2}\n{a ** 3}")
+    if a >= 7:
+        w = file.writelines(f"걷자")
+    elif a >= 4:
+        w = file.writelines(f"뛰자")
+    else:
+        w = file.writelines(f"다음 거 타자")
