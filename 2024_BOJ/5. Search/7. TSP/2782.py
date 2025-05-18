@@ -6,22 +6,24 @@ inf = 1000000
 d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 t = int(input())
 
-def TSP(now, visit):
+def TSP(now, visit, depth):
     if tsp_dp[now][visit] == inf:
         bit = 1
         for i in range(1, gift_count):
             bit <<= 1
             if visit & bit: continue
 
-            k = TSP(i, visit | bit)
+            # k는 하위 탐색에서 반환된 소모 시간
+            k = TSP(i, visit | bit, depth + 1)
             new_dist = link[now][i] + dist[i][visit | bit]
             k += new_dist
+            # new_dist가 더해진 k는 현재 위치에서 예상되는 소모 시간
 
             # k가 현재 저장된 값보다 작은 경우
             # tsp_dp와 dist를 모두 갱신
             # k는 같은데 dist가 더 짧아질 수 있는 경우
             # dist만 갱신
-            if k < tsp_dp[now][visit]:
+            if k + (new_dist * depth)  < tsp_dp[now][visit] + (dist[now][visit] * depth):
                 tsp_dp[now][visit] = k
                 dist[now][visit] = new_dist
             elif k == tsp_dp[now][visit] and dist[now][visit] > new_dist:
@@ -113,7 +115,7 @@ for _ in range(t):
     for i in range(gift_count):
         tsp_dp[i][k] = link[i][gift_count]
         dist[i][k] = link[i][gift_count]
-    TSP(0, 1)
+    TSP(0, 1, 0)
 
     # K에서 출발하는 최적해 확인
     res = 0
