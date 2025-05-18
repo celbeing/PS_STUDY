@@ -1,1 +1,4 @@
-print(round(1*50/100,0))
+a = 2
+b = 3
+a, b = b, a
+print(a, b)
