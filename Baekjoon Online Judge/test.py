@@ -1,4 +1,5 @@
-dodeca = 'ABCDEFGHIJKL'
-n = int(input()) - 1
-res = dodeca[n % 12] + str(n % 10)
-print(res)
+n, m = map(int, input().split())
+for _ in range(n):
+    a, b = map(int, input().split())
+    m += b if a == 1 else -b
+print(m)
