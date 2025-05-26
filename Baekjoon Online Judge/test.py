@@ -1,11 +1,9 @@
-recaman = set()
-n = 0
-num = 1
-while n < 1000:
-    if n - num <= 0 or n - num in recaman:
-        n += num
-    else:
-        n -= num
-    recaman.add(n)
-    print(f'{num}: {n}')
-    num += 1
+from math import ceil, floor
+res = 0
+a, b = map(int, input().split())
+a = ceil(a**0.5)
+b = floor((b**0.5) + 1)
+b = int(b)
+for i in range(a, b):
+    res += i ** 2
+print(res)
