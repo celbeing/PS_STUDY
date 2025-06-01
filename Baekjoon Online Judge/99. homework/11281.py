@@ -42,5 +42,12 @@ for i in range(-n, n + 1):
     if finished[i] == 0:
         dfs(i, 1)
 
-for k in scc:
-    print(k)
+scc_graph = [[] for _ in range(len(scc))]
+in_degree = [0] * len(scc)
+for now in range(-n, n + 1):
+    if now == 0: continue
+    for next in graph[now]:
+        if finished[now] != finished[next]:
+            scc_graph[finished[now]].append(finished[next])
+            in_degree[finished[next]] += 1
+
