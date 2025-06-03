@@ -50,4 +50,3 @@ for now in range(-n, n + 1):
         if finished[now] != finished[next]:
             scc_graph[finished[now]].append(finished[next])
             in_degree[finished[next]] += 1
-
