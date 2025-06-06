@@ -1,24 +1,24 @@
-# 11281: 2-SAT - 4
+# 2416: 문
 import sys
-from collections import deque
-sys.setrecursionlimit(10**6)
+
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-node = n * 2 + 1
-edge = [[] for _ in range(node)]
-for _ in range(m):
-    i, j = map(int, input().split())
-    edge[-i].append(j)
-    edge[-j].append(i)
-
+node = m * 2 + 1
+scc = []
 visit = [0] * node
-low = [i for i in range(-n, n + 1)]
+low = [i for i in range(-m, m + 1)]
 num = [0] * node
+stack = []
 count = 0
-stack = deque()
-scc = deque()
-scc_num = [0] * node
+
+edge = [[] for _ in range(node)]
+for _ in range(n):
+    a, sa, b, sb = map(int, input().split())
+    if sa: a *= -1
+    if sb: b *= -1
+    edge[-a].append(b)
+    edge[-b].append(a)
 
 def dfs(now):
     global count
@@ -40,24 +40,16 @@ def dfs(now):
         while stack:
             comp.append(stack.pop())
             visit[comp[-1]] = 0
-            scc_num[comp[-1]] = len(scc)
-            if comp[-1] == now: break
+            if now == comp[-1]: break
         scc.append(comp)
 
-for i in range(-n, n + 1):
+for i in range(-m, m + 1):
     if i == 0: continue
     if num[i] == 0: dfs(i)
 
 poss = True
-res = [0] * n
-for i in range(1, n + 1):
-    if scc_num[i] == scc_num[-i]:
-        poss = False
-        break
-    if scc_num[i] < scc_num[-i]:
-        res[i - 1] = 1
-if poss:
-    print(1)
-    print(*res)
-else:
-    print(0)
+res = [0] * (m + 1)
+while scc:
+    for c in scc[-1]:
+        b = 1 if c > 0 else -1
+        if res[c * b]

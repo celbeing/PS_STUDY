@@ -1,18 +1,46 @@
-n = int(input())
-dp = [0] * (n + 1)
-dp[0] = 1
+from collections import deque
 
-prime = []
-sieve = [0] * (n + 1)
-for i in range(2, n + 1):
-    if sieve[i]: continue
-    prime.append(i)
-    for j in range(i * i, n + 1, i):
-        sieve[j] = 1
+# v, e: 정점, 간선 수
+# stack: dfs 스택
+# edge: 간선 정보
+# back: 되돌아갈 수 있는 정점
+# dfs_num: dfs 방문 순서
+# visit: 스택 포함 여부
+# count: 현재 dfs 방문 순서 관리
+# scc: scc 컴포넌트 관리
 
-for p in prime:
-    for i in range(p, n + 1):
-        dp[i] += dp[i - p]
-        dp[i] %= 1_000_000_007
+stack = deque()
+back = [i for i in range(v + 1)]
+dfs_num = [0] * (v + 1)
+visit = [0] * (v + 1)
+count = 0
+scc = []
 
-print(dp[-1])
+def dfs(now):
+    global count
+    count += 1
+    stack.append(now)
+    visit[now] = 1
+    back = count
+    dfs_num = count
+
+    for next in edge[now]:
+        if dfs_num[next] == 0:
+            dfs(next)
+            back[now] = min(back[now], back[next])
+        elif visit[next]:
+            back[now] = min(back[now], dfs_num[next])
+
+    if back[now] == dfs_num[now]:
+        comp = []
+        while stack:
+            comp.append(stack.pop())
+            visit[comp[-1]] = 0
+            if now == comp[-1]: break
+        comp.sort()
+        scc.append(comp)
+
+for i in range(1, v + 1):
+    if dfs_num[i] == 0: dfs(i)
+
+scc.sort()
