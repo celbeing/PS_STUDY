@@ -49,13 +49,13 @@ def dfs(now):
         elif visit[next]:
             low[now] = min(low[now], num[next])
 
-        if low[now] == num[now]:
-            while stack:
-                t = stack.pop()
-                visit[t] = 0
-                scc_num[t] = scc_count
-                if t == now: break
-            scc_count += 1
+    if low[now] == num[now]:
+        while stack:
+            t = stack.pop()
+            visit[t] = 0
+            scc_num[t] = scc_count
+            if t == now: break
+        scc_count += 1
 
 for i in range(-m, m + 1):
     if i and num[i] == 0: dfs(i)
