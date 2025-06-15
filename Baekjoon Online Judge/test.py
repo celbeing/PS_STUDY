@@ -1,1 +1,1 @@
-print(-3%2)
+song = list('baby sukhwan tururu turu very cute tururu turu in bed tururu turu baby sukhwan'.split())
