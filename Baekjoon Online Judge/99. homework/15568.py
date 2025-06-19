@@ -1,6 +1,6 @@
-# 15568: 개구리
+# 15568: 개구리 3
 import sys
-sys.setrecursionlimit(6001)
+sys.setrecursionlimit(10000)
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
@@ -12,7 +12,7 @@ edge = [[] for _ in range(node)]
 leaf = [[] for _ in range(n + 1)]
 
 def neg(k):
-    return k + (n if k <= n else -n)
+    return k + (-n if k > n else n)
 
 def org(k):
     return k - (n if k > n else 0)
@@ -69,16 +69,13 @@ def dfs(now):
 for i in range(1, node):
     if num[i] == 0: dfs(i)
 
-res = [0] * (n + 1)
+res = []
 for i in range(1, n + 1):
-    if i == 0: continue
     if scc_num[i] == scc_num[neg(i)]:
         print('NO')
         break
-    if scc_num[i] > scc_num[neg(i)]:
-        res[i] = 1
+    res.append((lotus[i][1 if scc_num[i] > scc_num[neg(i)] else 0], i))
 else:
     print('YES')
-    for j in range(1, n + 1):
-        res[j] = lotus[j][res[j]]
-    print(*res[1:])
+    res.sort()
+    print(*[i for _, i in res])
