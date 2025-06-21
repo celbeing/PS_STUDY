@@ -5,6 +5,7 @@ input = sys.stdin.readline
 def dfs(now):
     global count, scc_count
     count += 1
+    stack.append(now)
     visit[now] = 1
     num[now], low[now] = count, count
 
@@ -35,7 +36,7 @@ while True:
     uv = list(map(int, input().split()))
     edge = [[] for _ in range(n + 1)]
     for i in range(0, m * 2, 2):
-        edge[i].append(edge[i + 1])
+        edge[uv[i]].append(uv[i + 1])
 
     count, scc_count = 0, 0
     visit, low, num, scc_num = [0] * (n + 1), [0] * (n + 1), [0] * (n + 1), [0] * (n + 1)
@@ -44,3 +45,17 @@ while True:
     for i in range(1, n + 1):
         if num[i] == 0: dfs(i)
 
+    sink = []
+    while scc:
+        comp = scc.pop()
+        is_sink = True
+        for now in comp:
+            for next in edge[now]:
+                if scc_num[now] != scc_num[next]:
+                    is_sink = False
+                    break
+            if not is_sink: break
+        if is_sink:
+            sink += comp
+    sink.sort()
+    print(*sink)
