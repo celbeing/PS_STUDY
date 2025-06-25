@@ -1,2 +1,1 @@
-a = {1, 2, 3}
-print(a + {4})
+print('UOS'[(int(input()) - 1) % 3])
