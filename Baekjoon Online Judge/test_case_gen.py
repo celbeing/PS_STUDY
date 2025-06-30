@@ -22,26 +22,17 @@ def eratos_sieve():
             sieve[j] = 1
 
 path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
-
-for tc in range(10, 21):
-    h = random.randint(0, 23)
-    m = random.randint(0, 59)
-    s = random.randint(0, 59)
-    q = random.randint(10000, 86400)
+for tc in range(1, 10):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
-    w = file.writelines(f'{h:02d}:{m:02d}:{s:02d}\nshutdown -s -t {q}')
-
-    h += q // 3600
-    q %= 3600
-    m += q // 60
-    q %= 60
-    s += q
-    if s >= 60:
-        s %= 60
-        m += 1
-    if m >= 60:
-        m %= 60
-        h += 1
-    h %= 24
+    k = tc
+    w = file.writelines(f'{k}')
+    for i in range(1, k):
+        w = file.writelines(f'\n{i} {i + 1}')
+    res = k - 1
+    t = 1
+    for i in range(1, k // 2 + 1):
+        if i * (k - 1 - i) > res:
+            res = i * (k - 1 - i)
+            t = i + 1
     file = open(path + f'{tc}.out', 'w+', encoding = 'utf-8')
-    w = file.writelines(f'{h:02d}:{m:02d}:{s:02d}')
+    w = file.writelines(f'{t} {res}')
