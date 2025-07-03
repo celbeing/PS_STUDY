@@ -1,39 +1,43 @@
-def dfs(now):
-    global count
-    count += 1
-    stack.append(now)
-    num[now] = count
-    low[now] = count
-    visit[now] = 1
+import sys
+sys.setrecursionlimit(10000)
 
-    for next in edge[now]:
-        if num[next] == 0:
-            dfs(next)
-            low[now] = min(low[now], low[next])
-        elif visit[next]:
-            low[now] = min(low[now], num[next])
+def find_best_computer(n, connections):
+    tree = [[] for _ in range(n + 1)]
+    for a, b in connections:
+        tree[a].append(b)
+        tree[b].append(a)
 
-    if num[now] == low[now]:
-        comp = []
-        while stack:
-            c = stack.pop()
-            visit[c] = 0
-            comp.append(c)
-            if c == now: break
-        scc.append(comp)
+    max_score = 0
+    best_node = n + 1
 
-n, e = map(int, input().split())
-edge = [[] for _ in range(n + 1)]
-for _ in range(e):
-    u, v = map(int, input().split())
-    edge[u].append(v)
+    def dfs(node, parent):
+        size = 1
+        component_sizes = []
 
-visit = [0] * (n + 1)
-num = [0] * (n + 1)
-low = [0] * (n + 1)
-stack = []
-scc = []
-count = 0
+        for neighbor in tree[node]:
+            if neighbor != parent:
+                child_size = dfs(neighbor, node)
+                component_sizes.append(child_size)
+                size += child_size
 
-for i in range(1, n + 1):
-    if num[i] == 0: dfs(i)
+        if parent != -1:
+            component_sizes.append(n - size)
+
+        score = 1
+        for comp in component_sizes:
+            score *= comp if comp > 0 else 1
+
+        nonlocal max_score, best_node
+        if score > max_score or (score == max_score and node < best_node):
+            max_score = score
+            best_node = node
+
+        return size
+
+    dfs(1, -1)
+    return best_node, max_score
+
+N = int(input())
+connections = [tuple(map(int, input().split())) for _ in range(N - 1)]
+node, score = find_best_computer(N, connections)
+print(node, score)
