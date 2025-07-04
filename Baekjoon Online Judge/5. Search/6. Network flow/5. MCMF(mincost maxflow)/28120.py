@@ -4,37 +4,53 @@ from collections import deque
 input = sys.stdin.readline
 INF = int(1e9)
 
-def link(u, v, f = 1):
+def link(u, v, f = 1, c = 0):
     capa[u][v] = f
     capa[v][u] = 0
     flow[u][v] = 0
     flow[v][u] = 0
+    cost[u][v] = c
+    cost[v][u] = -c
 
 n, k, x = map(int, input().split())
 node = n + k + 2
 capa = [dict() for _ in range(node)]
 flow = [dict() for _ in range(node)]
+cost = [dict() for _ in range(node)]
 study = [0] * (n + 1)
 for i in range(1, n + 1): link(0, i)
 for i in range(n + 1, node): link(i, node - 1, x)
 for i in range(1, n + 1):
     for j in list(map(int, input().split()))[1:]:
         link(i, n + j)
+score = list(map(int, input().split()))
+rank = []
+for i in range(1, n + 1):
+    rank.append((-score[i - 1], i))
+rank.sort()
+for c, i in rank:
+    cost[0][i] = c
+    cost[i][0] = -c
 
 s, e = 0, node - 1
 while 1:
     bfs = deque([0])
     visit = [-1] * node
+    is_inQ = [0] * node
+    dist = [INF] * node
+    is_inQ[0] = 1
+    dist[0] = 0
 
     while bfs:
         now = bfs.popleft()
+        is_inQ[now] = 0
         for next in capa[now]:
-            if capa[now][next] - flow[now][next] > 0 and visit[next] == -1:
+            if capa[now][next] - flow[now][next] > 0 and dist[now] + cost[now][next] < dist[next]:
                 visit[next] = now
-                bfs.append(next)
-                if next == e:
-                    bfs.clear()
-                    break
+                dist[next] = dist[now] + cost[now][next]
+                if is_inQ[next] == 0:
+                    is_inQ[next] = 1
+                    bfs.append(next)
 
     if visit[e] == -1: break
 
