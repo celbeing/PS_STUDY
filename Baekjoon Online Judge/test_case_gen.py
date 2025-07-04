@@ -21,18 +21,20 @@ def eratos_sieve():
         for j in range(i * i, 10001, i):
             sieve[j] = 1
 
+check = set()
 path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
-for tc in range(1, 10):
+for tc in range(1, 11):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
-    k = tc
-    w = file.writelines(f'{k}')
-    for i in range(1, k):
-        w = file.writelines(f'\n{i} {i + 1}')
-    res = k - 1
-    t = 1
-    for i in range(1, k // 2 + 1):
-        if i * (k - 1 - i) > res:
-            res = i * (k - 1 - i)
-            t = i + 1
+    a, b = random.randint(1, 20), random.randint(1, 20)
+    if (a, b) in check:
+        a, b = random.randint(1, 20), random.randint(1, 20)
+        check.add((a, b))
+    w = file.writelines(f'{a} {b}')
     file = open(path + f'{tc}.out', 'w+', encoding = 'utf-8')
-    w = file.writelines(f'{t} {res}')
+
+    if a > b:
+        a, b = b, a
+    if b - a > 1:
+        w = file.writelines(f'{a + 1}')
+    for k in range(a + 2, b):
+        w = file.writelines(f'\n{k}')

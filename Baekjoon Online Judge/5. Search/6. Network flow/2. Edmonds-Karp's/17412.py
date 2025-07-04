@@ -27,7 +27,7 @@ while True:
 
     residual = int(1e9)
     route = 2
-
+    
     while route > 1:
         if residual > capa[visit[route]][route]-flow[visit[route]][route]:
             residual = capa[visit[route]][route]-flow[visit[route]][route]
