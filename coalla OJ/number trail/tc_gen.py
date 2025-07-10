@@ -1,27 +1,5 @@
 import random
-from collections import deque
 
-random.random()
-inf = 1 << 31
-mod = int(1e9) + 7
-
-def euc(a, b):
-    while b:
-        a, b = b, a % b
-    return a
-
-def eratos_sieve():
-    sieve = [0] * 10001
-    sieve[0] = 1
-    sieve[1] = 1
-    prime = []
-    for i in range(2, 10001):
-        if sieve[i]: continue
-        prime.append(i)
-        for j in range(i * i, 10001, i):
-            sieve[j] = 1
-
-check = set()
 path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
 d = [(-1, 0), (0, -1), (0, 1), (1, 0)]
 
@@ -34,7 +12,7 @@ def dfs(x, y, c):
         t += 1
     if t <= fin:
         dist = abs(loc[t][0] - x) + abs(loc[t][1] - y)
-        if dist != t - c: return 0
+        if (dist & 1 ^ (t - c) & 1) or dist > t - c: return 0
 
     for a, b in d:
         dx, dy = x + a, y + b
@@ -47,7 +25,7 @@ def dfs(x, y, c):
                 if dfs(dx, dy, c + 1): return 1
     return 0
 
-for tc in range(11, 16):
+for tc in range(16, 21):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
     n = int(input())
     fin = n * n
