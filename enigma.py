@@ -1,21 +1,16 @@
 import sys
 input = sys.stdin.readline
 
-top = 'ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ'.split()
-mid = 'ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ'.split()
-btm = list(' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ')
-base = ord('가')
+t = 'ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ'.split()
+base = ord('A')
 
 def korean_sep(word):
 
     result = []
     for w in list(word.strip()):
         idx = ord(w) - base
-        if 0 <= idx <= 11172:
-            ch1 = idx // 588
-            ch3 = idx % 28
-            ch2 = ((idx - ch3) % 588) // 28
-            result.append([ch1, ch2, ch3])
+        if 0 <= idx <= 25:
+            result
     return result
 
 def korean_com(sep):
