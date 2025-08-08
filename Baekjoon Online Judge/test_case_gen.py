@@ -1,4 +1,5 @@
 import random
+from heapq import heappush, heappop
 from collections import deque
 
 random.random()
@@ -25,63 +26,56 @@ check = set()
 path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
 d = [(-1, 0), (0, -1), (0, 1), (1, 0)]
 
-def dfs(x, y, c):
-    if c == fin:
-        return 1
+def tri_cor(k):
+    common_diff = 0
+    level = 0
+    count = 0
+    while k > common_diff:
+        k -= common_diff
+        common_diff += 1
+        level += 1
+        count += 1
+    return level, k
 
-    t = c
-    while t <= fin and not(t in loc):
-        t += 1
-    if t <= fin:
-        dist = abs(loc[t][0] - x) + abs(loc[t][1] - y)
-        if dist != t - c: return 0
-
-    for a, b in d:
-        dx, dy = x + a, y + b
-        if 0 <= dx < n and 0 <= dy < n:
-            if board[dx][dy] == 0:
-                board[dx][dy] = c + 1
-                if dfs(dx, dy, c + 1): return 1
-                board[dx][dy] = 0
-            elif board[dx][dy] == c + 1:
-                if dfs(dx, dy, c + 1): return 1
-    return 0
-
-for tc in range(11, 16):
+for tc in range(1, 101):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
-    n = int(input())
-    fin = n * n
-    w = file.writelines(f'{n}')
-    board = []
-    for _ in range(n):
-        line = input().strip()
-        w = file.writelines(f'\n{line}')
-        board.append(list(map(int, line.split())))
-    loc = {}
-    for i in range(n):
-        for j in range(n):
-            if board[i][j]:
-                loc[board[i][j]] = (i, j)
+    n = random.randint(1, 100000)
+    t = random.randint(1, min(n, 100))
+    while n in check:
+        n = random.randint(1, 100000)
+    w = file.writelines(f'{n} {t}')
+
+    hq = []
+    check_2 = []
+    for _ in range(t):
+        i = random.randint(1, n)
+        j = random.randint(1, i)
+        k = i - j + 1
+        while True:
+            for p, q in check_2:
+                if j <= p and k <= q:
+                    break
+            else:
+                check_2.append((j, k))
+                break
+            i = random.randint(1, n)
+            j = random.randint(1, i)
+            k = i - j + 1
+
+        w = file.writelines(f'\n{j + k - 1} {j}')
+        heappush(hq, (-j, -k))
+
     res = 0
-    for i in range(n):
-        for j in range(n):
-            if board[i][j] == 0:
-                board[i][j] = 1
-                res = dfs(i, j, 1)
-                if res: break
-                board[i][j] = 0
-            elif board[i][j] == 1:
-                res = dfs(i, j, 1)
-                if res: break
-        if res: break
+    last = 0
+    depth = 0
+    while hq:
+        j, k = heappop(hq)
+        j, k = -j, -k
+        if depth < k:
+            res += depth * (last - j)
+            last = j
+            depth = k
+    res += depth * last
 
     file = open(path + f'{tc}.out', 'w+', encoding = 'utf-8')
-    if res:
-        w = file.writelines(f'YES')
-        for i in range(n):
-            line = str(board[i][0])
-            for j in range(1, n):
-                line += f' {str(board[i][j])}'
-            w = file.writelines(f'\n{line}')
-    else:
-        w = file.writelines(f'NO')
+    w = file.writelines(f'{res}')
