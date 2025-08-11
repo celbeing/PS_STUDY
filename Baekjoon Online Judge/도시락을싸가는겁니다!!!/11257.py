@@ -1,4 +1,5 @@
 # 11257: IT Passport Examination
+# solved
 import sys
 input = sys.stdin.readline
 def solution():
