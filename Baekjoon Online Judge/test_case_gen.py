@@ -39,10 +39,10 @@ def tri_cor(k):
 
 for tc in range(1, 101):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
-    n = random.randint(1, 100000)
-    t = random.randint(1, min(n, 100))
+    n = random.randint(1, 100000000)
+    t = random.randint(1, min(n, 1000))
     while n in check:
-        n = random.randint(1, 100000)
+        n = random.randint(1, 100000000)
     w = file.writelines(f'{n} {t}')
 
     hq = []
