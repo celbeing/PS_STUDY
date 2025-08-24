@@ -7,7 +7,6 @@ btm = list(' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈ�
 base = ord('가')
 
 def korean_sep(word):
-
     result = []
     for w in list(word.strip()):
         idx = ord(w) - base
@@ -40,5 +39,9 @@ def korean_enc(sep, k):
 while True:
     origin = input().strip()
     sep = korean_sep(origin)
+<<<<<<< Updated upstream
     enc = korean_enc(sep, 13)
+=======
+    enc = korean_enc(sep, 20)
+>>>>>>> Stashed changes
     print(f'{korean_com(enc)}')
