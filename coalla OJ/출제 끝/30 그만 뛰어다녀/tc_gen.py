@@ -92,7 +92,7 @@ for tc in range(17, 21):
 
 
     file = open(path + f'{tc}.out', 'w+', encoding = 'utf-8')
-    res = solution.solution(n, m , ground)
+    res = solution.solution(n, m, ground)
     if res:
         w = file.writelines(f'YES\n{res}')
     else:

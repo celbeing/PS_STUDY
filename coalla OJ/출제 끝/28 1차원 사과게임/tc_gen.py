@@ -1,5 +1,5 @@
-import random, math, solution
-from collections import deque
+import random, solution
+
 random.random()
 inf = 1 << 31
 mod = int(1e9) + 7
