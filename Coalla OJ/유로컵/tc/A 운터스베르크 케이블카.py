@@ -8,8 +8,11 @@ N명의 이용객 모두가 오늘 안에 정상을 방문하고 돌아오려면
 import random
 path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
 
-for tc in range(1, 101):
+for tc in range(1, 11):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
+    n = random.randint(1, 1000)
+    k = random.randint(1, 10)
+    t = random.randint(60, 120)
     w = file.writelines()
 
     file = open(path + f'{tc}.out', 'w+', encoding='utf-8')
