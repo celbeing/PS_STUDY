@@ -1,11 +1,11 @@
-import sys
-input = sys.stdin.readline
-
-for _ in range(int(input())):
-    s = list(input().strip())
-    n = int(len(s) ** 0.5)
-    res = ''
-    for i in range(n - 1, -1, -1):
-        for j in range(i, len(s), n):
-            res += s[j]
-    print(res)
+n = int(input())
+a = 1
+k = 0
+while a < n:
+    a <<= 1
+    k += 1
+b = 1
+while not(n & b):
+    b <<= 1
+    k -= 1
+print(a, k)
