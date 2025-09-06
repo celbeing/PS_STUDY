@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import sys
 input = sys.stdin.readline
 prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
@@ -100,3 +101,46 @@ for fe in factor_exp:
         print(res)
         break
 else: print(-1)
+=======
+import random
+prime = []
+len2 = []
+len3 = []
+len4 = []
+len5 = []
+len6 = []
+sieve = [1] * 1000001
+for i in range(2, 1000001):
+    if sieve[i]:
+        if 10 < i < 99: len2.append(i)
+        elif 100 < i < 999: len3.append(i)
+        elif 1000 < i < 9999: len4.append(i)
+        elif 10000 < i < 99999: len5.append(i)
+        elif 100000 < i: len6.append(i)
+        for j in range(i * i, 1000001, i):
+            sieve[j] = 0
+
+random.shuffle(len2)
+random.shuffle(len3)
+random.shuffle(len4)
+random.shuffle(len5)
+random.shuffle(len6)
+
+for i in range(5):
+    prime.append(len2.pop())
+for i in range(3):
+    prime.append(len3.pop())
+for i in range(2):
+    prime.append(len4.pop())
+for i in range(2):
+    prime.append(len5.pop())
+for i in range(1):
+    prime.append(len6.pop())
+
+print(prime)
+
+prime.append(27985032798461)
+res = 1
+for p in prime: res *= p
+print(res)
+>>>>>>> Stashed changes
