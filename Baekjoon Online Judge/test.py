@@ -1,13 +1,9 @@
 import sys
 input = sys.stdin.readline
-s = list(input().strip())
-n = len(s)
-count = 0
-for i in range(n - 2):
-    if s[i + 1] == '^':
-        if s[i] == s[i + 2] == '+': count += 1
-        elif s[i] == s[i + 2] == '-': count -= 1
 
-for i in range(n - 3):
-    if s[i] == s[i + 3]:
-        if s[i + 1] ==
+a = sorted(list(map(int, input().split())))
+res = a[0] + (a[1] - a[0]) // 3 + (a[2] - a[0]) // 3
+if (a[1] - a[0]) % 3: res += 1
+if (a[2] - a[0]) % 3: res += 1
+if (a[1] - a[0]) % 3 == (a[2] - a[0]) % 3 == 1: res -= 1
+print(res)
