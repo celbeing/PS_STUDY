@@ -1,11 +1,7 @@
-import sys
-input = sys.stdin.readline
-
-n = int(input())
-a = list(map(int, input().split()))
-rage = 0
-total = 0
-for b in a:
-    rage += 1 if b else -1
-    total += rage
-print(total)
+dp = [0] * 73
+dp[0] = 1
+dp[1] = 1
+dp[2] = 2
+for i in range(3, 73):
+    dp[i] = dp[i - 2] + dp[i - 3] + 1
+print()
