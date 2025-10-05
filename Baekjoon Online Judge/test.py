@@ -1,11 +1,17 @@
 import sys
 input = sys.stdin.readline
-mod = int(1e9 + 9)
-
-n = int(input())
-a = list(map(int, input().split()))
-dp = [[0] * (n + 1) for _ in range(n + 1)]
-dp[0][0] = 1
-for i in range(1, n + 1):
-    for j in range(i):
-        dp[i][j]
+i = 0
+while 1:
+    i += 1
+    flag = 0 if i % 29 else 1
+    a = i // 10
+    b = i % 10
+    c = 0 if (a + b * 3) % 29 else 1
+    if flag == c:
+        if flag:
+            print(f'{i}는 29의 배수')
+        else:
+            print(f'{i}에 대해 통과')
+    else:
+        print(f'반례는 {i}')
+        input('계속')
