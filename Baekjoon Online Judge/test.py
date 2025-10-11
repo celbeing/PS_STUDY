@@ -1,17 +1,26 @@
 import sys
 input = sys.stdin.readline
-i = 0
-while 1:
-    i += 1
-    flag = 0 if i % 29 else 1
-    a = i // 10
-    b = i % 10
-    c = 0 if (a + b * 3) % 29 else 1
-    if flag == c:
-        if flag:
-            print(f'{i}는 29의 배수')
+
+def func(a, b, c, x):
+    return a * x ** 2 + b * x  + c
+
+for _ in range(int(input())):
+    a, b, c, s, t = map(int, input().split())
+    fs, ft = func(a, b, c, s), func(a, b, c, t)
+    if fs * ft > 0:
+        if a == 0:
+            print('No')
+        elif b ** 2 > (a * c) << 2:
+            if a > 0 and fs < 0:
+                print('No')
+            elif a < 0 and fs > 0:
+                print('No')
+            else:
+                if s <= -(b / a) / 2 <= t:
+                    print('Yes')
+                else:
+                    print('No')
         else:
-            print(f'{i}에 대해 통과')
+            print('No')
     else:
-        print(f'반례는 {i}')
-        input('계속')
+        print('Yes')
