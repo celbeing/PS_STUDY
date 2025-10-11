@@ -1,31 +1,18 @@
 import sys
 input = sys.stdin.readline
 
-<<<<<<< Updated upstream
-def func(a, b, c, x):
-    return a * x ** 2 + b * x  + c
+t = int(input())
+s = list(map(int, input().split()))
 
-for _ in range(int(input())):
-    a, b, c, s, t = map(int, input().split())
-    fs, ft = func(a, b, c, s), func(a, b, c, t)
-    if fs * ft > 0:
-        if a == 0:
-            print('No')
-        elif b ** 2 > (a * c) << 2:
-            if a > 0 and fs < 0:
-                print('No')
-            elif a < 0 and fs > 0:
-                print('No')
-            else:
-                if s <= -(b / a) / 2 <= t:
-                    print('Yes')
-                else:
-                    print('No')
-        else:
-            print('No')
-    else:
-        print('Yes')
-=======
-for _ in range(int(input())):
-    a, b, c, s, t = map(int, input().split())
->>>>>>> Stashed changes
+while len(s) < 5: s.append(0)
+res = 0
+if s[0] > s[2]: res += (s[0] - s[2]) * 508
+else: res += (s[2] - s[0]) * 108
+
+if s[1] > s[3]: res += (s[1] - s[3]) * 212
+else: res += (s[3] - s[1]) * 305
+
+res += s[4] * 707
+res *= 4763
+
+print(res)
