@@ -1,6 +1,7 @@
 import sys
 input = sys.stdin.readline
 
+<<<<<<< Updated upstream
 def func(a, b, c, x):
     return a * x ** 2 + b * x  + c
 
@@ -24,3 +25,7 @@ for _ in range(int(input())):
             print('No')
     else:
         print('Yes')
+=======
+for _ in range(int(input())):
+    a, b, c, s, t = map(int, input().split())
+>>>>>>> Stashed changes
