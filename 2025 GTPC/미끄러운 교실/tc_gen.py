@@ -1,9 +1,9 @@
 import random
 from solution import sol
 from solution2 import sol2
-path = r'C:\Users\kimsd\OneDrive\Documents\GitHub\PS_STUDY\2025 GTPC\미끄러운 교실\tc\\'
+path = r'C:\Users\kimsd\Documents\GitHub\PS_STUDY\2025 GTPC\미끄러운 교실\tc\\'
 
-tc = 1
+tc = 20
 while 1:
     r, c = map(int, input().split())
     if r == c == 0:

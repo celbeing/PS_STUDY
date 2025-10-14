@@ -25,3 +25,7 @@ def sol2(r, c, grid):
                 dist[nx][ny] = dist[x][y] + 1
                 bfs.append((nx, ny))
     return dist[-1][-1]
+
+r, c = map(int, input().split())
+grid = [list(input().strip()) for _ in range(r)]
+print(sol2(r, c, grid))
