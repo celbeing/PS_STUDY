@@ -33,3 +33,7 @@ def get_graph(r, c, grid):
                         graph[i][j].append((x, y))
                         break
     return graph
+
+r, c = map(int, input().split())
+grid = [list(input().strip()) for _ in range(r)]
+print(sol(r, c, grid))
