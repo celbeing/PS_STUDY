@@ -1,26 +1,8 @@
-import sys
-from collections import deque
-input = sys.stdin.readline
+from random import shuffle
 
-d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-n, m = map(int, input().split())
-res = [[-1] * m for _ in range(n)]
-bitmap = [list(input().strip()) for _ in range(n)]
-
-bfs = deque()
-for i in range(n):
-    for j in range(m):
-        if bitmap[i][j] == '1':
-            res[i][j] = 0
-            bfs.append((i, j))
-
-while bfs:
-    x, y = bfs.popleft()
-    for k in range(4):
-        nx, ny = x + d[k][0], y + d[k][1]
-        if 0 <= nx < n and 0 <= ny < m and bitmap[nx][ny] == '0' and res[nx][ny] == -1:
-            res[nx][ny] = res[x][y] + 1
-            bfs.append((nx, ny))
-
-for row in res:
-    print(*row)
+seed = list(map(str, '선생님 김하윤 김현중 유하은 정우성 윤진서 정준영 정현정'.split()))
+player = list(map(str, '김시현 서용준 송연우 안병훈 오윤서 이건우 이건희 이재건'.split()))
+shuffle(player)
+for i in range(0, 8, 2):
+    print(f'{seed[i]}-{player[i]}')
+    print(f'{player[i + 1]}-{seed[i + 1]}')
