@@ -23,19 +23,8 @@ def eratos_sieve():
             sieve[j] = 1
 
 check = set()
-path = r"C:\Users\kimsd\OneDrive\바탕 화면\tc\\"
+path = r"C:\Users\kimsd\Desktop\tc\\"
 d = [(-1, 0), (0, -1), (0, 1), (1, 0)]
-
-def tri_cor(k):
-    common_diff = 0
-    level = 0
-    count = 0
-    while k > common_diff:
-        k -= common_diff
-        common_diff += 1
-        level += 1
-        count += 1
-    return level, k
 
 for tc in range(1, 101):
     file = open(path + f'{tc}.in', 'w+', encoding='utf-8')
