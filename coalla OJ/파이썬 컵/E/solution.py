@@ -1,4 +1,4 @@
-y = int(input())
+y = int(input()) + 1
 if y % 4 == 0:
     if y % 100:
         if y % 400:
